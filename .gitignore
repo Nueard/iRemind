@@ -1,6 +1,9 @@
 # Mac
 .DS_Store
 
+# App dependencies
+www/assets/lib
+
 # iOS
 platforms/ios/build/
 platforms/ios/www/
