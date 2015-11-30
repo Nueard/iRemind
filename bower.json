@@ -1,0 +1,25 @@
+{
+  "name": "iRemind",
+  "homepage": "https://github.com/Nueard/iRemind",
+  "authors": [
+    "Ivelin Penchev <ivelinpenchev@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/assets/lib/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "~0.2.15",
+    "ngCordova": "~0.1.23-alpha",
+    "onsenui": "2.0.0-beta"
+  }
+}
