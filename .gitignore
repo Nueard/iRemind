@@ -3,6 +3,7 @@
 
 # App dependencies
 www/assets/lib
+platforms/browser
 
 # iOS
 platforms/ios/build/
