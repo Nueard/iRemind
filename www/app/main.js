@@ -6,8 +6,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 	$stateProvider
 		.state('main', {
 			url: "/",
-			templateUrl: "app/components/login/loginView.html",
-			controller: 'loginController'
+			templateUrl: "app/components/reminders/remindersView.html",
+			controller: 'remindersController'
 		})
 }]);
 

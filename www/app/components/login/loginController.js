@@ -11,4 +11,8 @@ app.controller('loginController', ['$scope', '$cordovaGeolocation',
 			}, function (err) {
 				// error
 			});
+
+		$scope.define = function() {
+			window.localStorage['name'] = 'Max';
+		}
 	}]);
