@@ -9,7 +9,7 @@
         <link type="text/css" rel="stylesheet" href="assets/lib/onsenui/css/onsen-css-components.css" media="all" />
         <link type="text/css" rel="stylesheet" href="assets/css/style.css" media="all" />
         <!-- Scripts -->
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA67x6Cy_RNSK5f9WKlaJatXVXsO6IRLxU"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA67x6Cy_RNSK5f9WKlaJatXVXsO6IRLxU"></script>
         <script type="text/javascript" src="assets/lib/onsenui/js/onsenui.min.js"></script>
         <script type="text/javascript" src="assets/lib/angular/angular.min.js"></script>
         <script type="text/javascript" src="assets/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -17,22 +17,14 @@
         <script type="text/javascript" src="assets/lib/ngCordova/dist/ng-cordova.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="app/modules.js"></script>
-
         <script type="text/javascript" src="app/components/login/loginController.js"></script>
+        <script type="text/javascript" src="app/components/map/mapController.js"></script>
         <script type="text/javascript" src="app/components/reminders/remindersController.js"></script>
-
         <script type="text/javascript" src="app/shared/map/mapDirective.js"></script>
-        <script type="text/javascript" src="app/shared/topbar/topbarDirective.js"></script>
-        <script type="text/javascript" src="app/shared/tabs/tabsDirective.js"></script>
-
         <script type="text/javascript" src="app/main.js"></script>
     </head>
 
-    <body>
-        <topbar></topbar>
-        <tabs></tabs>
-        <div ui-view>
-        </div>
+    <body ui-view="main">
     </body>
 
 </html>
