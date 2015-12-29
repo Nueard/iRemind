@@ -32,19 +32,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
 }]);
 
 // Database setup
-app.run(['$cordovaSQLite', function ($cordovaSQLite) {
+app.run(['dbService', function (dbService) {
     document.addEventListener("deviceready", function () {
-        var db = $cordovaSQLite.openDB({name: "iremind.db"});
-        // Setup queries
-        var queries = [
-            "CREATE TABLE IF NOT EXISTS locations (id integer primary key, latitude real, longitude real)",
-            "CREATE TABLE IF NOT EXISTS lists (id integer primary key, location int)"
-        ];
-        queries.forEach(function (query) {
-            $cordovaSQLite.execute(db, query).then(function (res) {
-            }, function (err) {
-                console.error(err);
-            });
-        })
+        dbService.init();
     }, false);
 }]);

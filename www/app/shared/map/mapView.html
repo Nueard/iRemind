@@ -1,3 +1,20 @@
 <div style="height:100%"></div>
 <input id="map-search" type="search" class="search-input" style="width:90%;margin-top:15px;" placeholder="Search...">
-<button class="fab fab-absolute" ng-click="createReminder()">+</button>
+<div style="width:100%; bottom:0px;background-color:white;position:absolute;">
+    <button class="button button--material--flat pull-left" style="width:50%" ng-click="newList()">NEW LIST</button>
+    <button class="button button--material--flat pull-right" style="width:50%" ng-click="addToList()">ADD TO LIST</button>
+    <div class="clearfix"></div>
+</div>
+
+<div ng-show="newListShow">
+    <div class="alert-dialog-mask alert-dialog-mask--material"></div>
+    <div class="alert-dialog alert-dialog--material">
+        <div class="alert-dialog-content alert-dialog-content--material">
+            <input class="text-input--material" placeholder="List name" ng-model="newListName" type="text">
+        </div>
+        <div class="alert-dialog-footer alert-dialog-footer--material">
+            <button class="alert-dialog-button alert-dialog-button--material" ng-click="newListOk()">OK</button>
+            <button class="alert-dialog-button alert-dialog-button--material" ng-click="newListCancel()">CANCEL</button>
+        </div>
+    </div>
+</div>
