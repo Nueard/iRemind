@@ -105,10 +105,12 @@ app.directive('map', ['$cordovaGeolocation', 'locationService', 'listService',
                         locations: locations
                     };
                     listService.newList(list);
+                    scope.newListCancel();
                 }
 
                 scope.newListCancel = function () {
-                    scope.newList = "";
+                    scope.newListShow = false;
+                    scope.newListName = "";
                 }
 
                 var addClickLocation = function (e) {

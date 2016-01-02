@@ -1,0 +1,33 @@
+<div class="alert-dialog-mask alert-dialog-mask--material"></div>
+<div class="alert-dialog alert-dialog--material dialog-material">
+    <p class="heading">New reminder</p>
+    <div class="row">
+        <ons-material-input label="Note" ng-model="form.note"></ons-material-input>
+    </div>
+    <div class="row">
+        <ons-material-input style="width:85%" label="Place" ng-model="form.place" ng-change="search()"></ons-material-input>
+        <i class="zmdi zmdi-map icon" ui-sref="map"></i>
+    </div>
+
+    <div class="row" ng-if="!form.selected">
+        <ul class="list">
+            <li class="list__item" ng-if="form.results.length == 0 && form.place.length != 0"  ui-sref="map">Add new +</li>
+            <li class="list__item" ng-repeat="result in form.results | limitTo:5" ng-click="select(result)">{{result.name}}</li>
+        </ul>
+    </div>
+    
+    <p class="helper pull-left">Trigger radius</p>
+    <p class="helper pull-right">{{form.radius}} meters</p>
+    <div class="row">
+        <input type="range" class="range range--material full-width" min="0" max="100" value="{{form.radius}}" ng-model="form.radius">
+    </div>
+    <p class="helper">Notification</p>
+    <div class="row">
+        <i class="zmdi zmdi-volume-up icon mt-5"></i>
+        <input type="range" class="range range--material pull-right slider-icon" min="0" max="100" value="{{form.volume}}" ng-model="form.volume">
+    </div>
+    <div class="alert-dialog-footer alert-dialog-footer--material">
+        <button class="alert-dialog-button alert-dialog-button--material" ng-click="ok()">OK</button>
+        <button class="alert-dialog-button alert-dialog-button--material">CANCEL</button>
+    </div>
+</div>

@@ -1,15 +1,19 @@
 /* global ons */
 var app = angular.module('app.controllers');
-app.controller('remindersController', ['$scope',
-	function ($scope) {		
-        $scope.createReminder = function() {
-			ons.createDialog('app/components/reminders/createReminderView.html').then(function(dialog) {
-				dialog.show();
-				dialog._scope.name = "";
-				dialog._scope.note = "";
-				dialog._scope.search = "";
-                
-                dialog._scope.close = dialog.destroy;
-			});
-		}
-	}]);
+app.controller('remindersController', ['$scope', "reminderService",
+    function ($scope, reminderService) {
+        var getReminders = function () {
+            reminderService.getReminders().then(function (res) {
+                $scope.reminders = [];
+                for (var i = 0; i < res.rows.length; i++) {
+                    $scope.reminders.push(res.rows.item(i));
+                }
+            }, function (err) {
+                console.error(err);
+            })
+        }
+
+        document.addEventListener("deviceready", function () {
+            getReminders();
+        });
+    }]);

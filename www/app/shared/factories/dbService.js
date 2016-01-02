@@ -7,10 +7,11 @@ app.factory('dbService', ['$cordovaSQLite', function ($cordovaSQLite) {
         db = $cordovaSQLite.openDB({ name: "iremind.db" });
         // Setup queries
         var queries = [
-            "DROP TABLE IF EXISTS locations",
-            "DROP TABLE IF EXISTS lists",
-            "CREATE TABLE IF NOT EXISTS locations (id integer primary key, latitude real, longitude real, name text)",
-            "CREATE TABLE IF NOT EXISTS lists (id integer primary key, name text)"
+            // "DROP TABLE IF EXISTS locations",
+            // "DROP TABLE IF EXISTS lists",
+            "CREATE TABLE IF NOT EXISTS locations (id integer primary key, list_id int, latitude real, longitude real, name text)",
+            "CREATE TABLE IF NOT EXISTS lists (id integer primary key, name text)",
+            "CREATE TABLE IF NOT EXISTS reminders (id integer primary key, list int, note text, radius int, volume int)"
         ];
         queries.forEach(function (query) {
             $cordovaSQLite.execute(db, query).then(function (res) {

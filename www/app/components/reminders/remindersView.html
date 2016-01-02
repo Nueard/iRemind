@@ -1,1 +1,4 @@
-<button class="fab fab-absolute" ng-click="createReminder()">+</button>
+<button class="fab fab-absolute" ui-sref="main.reminders.create">+</button>
+<ul class="list">
+  <li class="list__item" ng-repeat="reminder in reminders">{{reminder}}</li>
+</ul>
