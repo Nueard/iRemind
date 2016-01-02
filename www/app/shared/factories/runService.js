@@ -12,7 +12,7 @@ app.factory('runService', ['$interval', 'reminderService', '$cordovaGeolocation'
                 title: 'You are near a POI',
                 text: 'reminder.note'
             });
-        }, 20000);
+        }, 2 * 60 * 1000);
 
         var getDistance = function (p1, p2) {
             var R = 6371000; // metres
