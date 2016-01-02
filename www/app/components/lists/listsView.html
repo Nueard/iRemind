@@ -1,3 +1,10 @@
 <ul class="list">
-  <li class="list__item" ng-repeat="list in lists">{{list.name}}</li>
+    <li class="list__item" ng-repeat="list in lists">
+        <div style="width:100%;">
+            {{list.name | limitTo:20}}
+            <span class="pull-right">
+                <i class="zmdi zmdi-delete" ng-click="delete(list)"></i>
+            </span>
+        </div>
+    </li>
 </ul>

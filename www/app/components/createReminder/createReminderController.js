@@ -23,7 +23,7 @@ app.controller('createReminderController', ['$scope', '$state', 'listService', '
                 note: $scope.form.note,
                 radius: $scope.form.radius
             };
-            reminderService.addReminder(data).then(function (res) {
+            reminderService.add(data).then(function (res) {
                 $state.go("main.reminders");
             }, function (err) {
                 console.error(err);
@@ -39,7 +39,7 @@ app.controller('createReminderController', ['$scope', '$state', 'listService', '
 
         $scope.search = function (a) {
             $scope.form.selected = null;
-            listService.getLists($scope.form.place).then(function (res) {
+            listService.get($scope.form.place).then(function (res) {
                 $scope.form.results = [];
                 for (var i = 0; i < res.rows.length; i++) {
                     $scope.form.results.push(res.rows.item(i));

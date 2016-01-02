@@ -1,20 +1,18 @@
 /* global angular */
 var app = angular.module('app.services');
 app.factory('runService', ['$interval', 'reminderService', '$cordovaGeolocation', 'locationService',
-    '$cordovaLocalNotification',
-    function ($interval, reminderService, $cordovaGeolocation, locationService, $cordovaLocalNotification) {
-        var issueNotification = function () {
+    '$cordovaLocalNotification', '$cordovaVibration', 'throttle',
+    function ($interval, reminderService, $cordovaGeolocation, locationService, $cordovaLocalNotification,
+        $cordovaVibration, throttle) {
+
+        var issueNotification = throttle(function () {
+            $cordovaVibration.vibrate(3000);
             $cordovaLocalNotification.schedule({
                 id: 1,
-                title: 'Title here',
-                text: 'Text here',
-                data: {
-                    customProperty: 'custom value'
-                }
-            }).then(function (result) {
-                // ...
+                title: 'You are near a POI',
+                text: 'reminder.note'
             });
-        }
+        }, 20000);
 
         var getDistance = function (p1, p2) {
             var R = 6371000; // metres
@@ -32,7 +30,7 @@ app.factory('runService', ['$interval', 'reminderService', '$cordovaGeolocation'
         }
 
         var tick = function () {
-            reminderService.getReminders().then(function (res) {
+            reminderService.get().then(function (res) {
                 var reminders = [];
                 for (var i = 0; i < res.rows.length; i++) {
                     reminders.push(res.rows.item(i));
@@ -44,7 +42,7 @@ app.factory('runService', ['$interval', 'reminderService', '$cordovaGeolocation'
                         var lat = position.coords.latitude;
                         var lng = position.coords.longitude;
                         reminders.forEach(function (reminder) {
-                            locationService.getLocations(reminder.list).then(function (res) {
+                            locationService.get(reminder.list).then(function (res) {
                                 for (var i = 0; i < res.rows.length; i++) {
                                     var location = res.rows.item(i);
                                     var p1 = {
@@ -55,10 +53,8 @@ app.factory('runService', ['$interval', 'reminderService', '$cordovaGeolocation'
                                         lat: location.latitude,
                                         lng: location.longitude
                                     };
-                                    console.log(reminder);
                                     if (getDistance(p1, p2) < reminder.radius) {
-                                        console.log("TRIGGERED");
-                                        issueNotification();
+                                        issueNotification(reminder);
                                     }
                                 }
                             }, function (err) {
@@ -79,8 +75,6 @@ app.factory('runService', ['$interval', 'reminderService', '$cordovaGeolocation'
             $cordovaLocalNotification.hasPermission(function (granted) {
                 alert('Permission has been granted: ' + granted);
             });
-
-            //
             $cordovaLocalNotification.promptForPermission(function () {
                 alert('registered Permission');
             });

@@ -104,7 +104,7 @@ app.directive('map', ['$cordovaGeolocation', 'locationService', 'listService',
                         name: scope.newListName,
                         locations: locations
                     };
-                    listService.newList(list);
+                    listService.add(list);
                     scope.newListCancel();
                 }
 

@@ -1,7 +1,7 @@
 /* global angular */
 var app = angular.module('app.services');
 app.factory('locationService', ['dbService', function (dbService) {
-    var addLocation = function (location) {
+    var add = function (location) {
         var query = "INSERT INTO locations (list_id, latitude, longitude, name) VALUES (?,?,?,?)";
         var params = [location.list_id, location.lat, location.lng, location.name];
         dbService.exec(query, params).then(function (res) {
@@ -10,7 +10,7 @@ app.factory('locationService', ['dbService', function (dbService) {
         });
     }
 
-    var getLocations = function (id) {
+    var get = function (id) {
         var query = "";
         if (id) {
             query = "SELECT * FROM locations WHERE list_id = " + id;
@@ -21,7 +21,7 @@ app.factory('locationService', ['dbService', function (dbService) {
     }
 
     return {
-        addLocation: addLocation,
-        getLocations: getLocations
+        add: add,
+        get: get
     };
 }]);

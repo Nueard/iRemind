@@ -1,4 +1,11 @@
 <button class="fab fab-absolute" ui-sref="main.reminders.create">+</button>
 <ul class="list">
-  <li class="list__item" ng-repeat="reminder in reminders">{{reminder}}</li>
+    <li class="list__item" ng-repeat="reminder in reminders">
+        <div style="width:100%;">
+            {{reminder.note | limitTo:20}}
+            <span class="pull-right">
+                <i class="zmdi zmdi-delete" ng-click="delete(reminder)"></i>
+            </span>
+        </div>
+    </li>
 </ul>
