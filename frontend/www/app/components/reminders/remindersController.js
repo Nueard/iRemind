@@ -2,15 +2,12 @@
 var app = angular.module('app.controllers');
 app.controller('remindersController', ['$scope', "reminderService",
     function ($scope, reminderService) {
+
         var getReminders = function () {
-            reminderService.get().then(function (res) {
-                $scope.reminders = [];
-                for (var i = 0; i < res.rows.length; i++) {
-                    $scope.reminders.push(res.rows.item(i));
-                }
-            }, function (err) {
-                console.error(err);
-            })
+            reminderService.get().then(function(reminders){
+                console.log(reminders);
+                $scope.reminders = reminders;
+            });
         }
 
         $scope.delete = function (reminder) {
@@ -21,7 +18,12 @@ app.controller('remindersController', ['$scope', "reminderService",
             })
         }
 
-        document.addEventListener("deviceready", function () {
+        $scope.change = function() {
+            alert("asd");
+            console.log(asd);
+        }
+
+        ons.ready(function() {
             getReminders();
         });
     }]);

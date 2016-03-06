@@ -1,0 +1,46 @@
+<div class="alert-dialog-mask alert-dialog-mask--material"></div>
+<div class="alert-dialog alert-dialog--material">
+    <div class="alert-dialog-container alert-dialog-container--material">
+        <div class="alert-dialog-title--material alert-dialog-title">
+            New reminder
+        </div>
+        <div class="alert-dialog-content alert-dialog-content--material">
+            <div class="row">
+                <input class="text-input--material full-width" placeholder="Note" ng-model="form.note" type="text" required>
+            </div>
+            <div class="row">
+                <input class="text-input--material width-icon" placeholder="Place" ng-model="form.place" ng-change="search()" type="text" required>
+                <i class="zmdi zmdi-map zmdi-hc-2x zmdi-hc-2x-inline pull-right" ui-sref="main.lists.create"></i>
+            </div>
+            <ul class="list list-material" ng-if="!form.selected">
+                <li class="list__item list__item--material" ng-if="form.results.length == 0 && form.place.length != 0"  ui-sref="main.lists.create">
+                    <div class="list__item__center list__item--material__center">
+                        <div class="list__item__title list__item--material__title">
+                            Add new +
+                        </div>
+                    </div>
+                </li>
+                <li class="list__item list__item--material" ng-repeat="result in form.results | limitTo:5" ng-click="select(result)">{{result.name}}</li>
+            </ul>
+
+            <div class="row">
+                <span class="pull-left">Trigger radius</span>
+                <span class="pull-right">{{form.radius}} meters</span>
+            </div>
+            <div class="row">
+                <input type="range" class="range range--material full-width" min="0" max="100" ng-model="form.radius">
+            </div>
+            <div class="row">
+                Notification
+            </div>
+            <div class="row">
+                <i class="zmdi zmdi-volume-up zmdi-hc-2x"></i>
+                <input type="range" class="range range--material width-icon pull-right" min="0" max="100" ng-model="form.volume">
+            </div>
+        </div>
+        <div class="alert-dialog-footer alert-dialog-footer--material">
+            <button class="alert-dialog-button alert-dialog-button--material" ng-click="ok()">OK</button>
+            <button class="alert-dialog-button alert-dialog-button--material" ng-click="close()">CANCEL</button>
+        </div>
+    </div>
+</div>

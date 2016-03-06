@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
     <head>
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <meta http-equiv="Content-Security-Policy">
         <!-- Styles -->
         <link type="text/css" rel="stylesheet" href="assets/lib/onsenui/css/onsenui.css" media="all" />
         <link type="text/css" rel="stylesheet" href="assets/lib/onsenui/css/onsen-css-components.css" media="all" />
+        <link type="text/css" rel="stylesheet" href="assets/lib/material-design-color-palette/css/material-design-color-palette.min.css" media="all" />
         <link type="text/css" rel="stylesheet" href="assets/css/style.css" media="all" />
+
         <!-- Scripts -->
         <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA67x6Cy_RNSK5f9WKlaJatXVXsO6IRLxU"></script>
         <script type="text/javascript" src="assets/lib/onsenui/js/onsenui.min.js"></script>
@@ -17,22 +20,29 @@
         <script type="text/javascript" src="assets/lib/ngCordova/dist/ng-cordova.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="app/modules.js"></script>
+
         <script type="text/javascript" src="app/components/login/loginController.js"></script>
-        <script type="text/javascript" src="app/components/map/mapController.js"></script>
+
         <script type="text/javascript" src="app/components/lists/listsController.js"></script>
+        <script type="text/javascript" src="app/components/lists/create/createListController.js"></script>
+        <script type="text/javascript" src="app/components/lists/edit/editListController.js"></script>
+
         <script type="text/javascript" src="app/components/reminders/remindersController.js"></script>
-        <script type="text/javascript" src="app/components/createReminder/createReminderController.js"></script>
+        <script type="text/javascript" src="app/components/reminders/create/createReminderController.js"></script>
+
         <script type="text/javascript" src="app/shared/map/mapDirective.js"></script>
+
         <script type="text/javascript" src="app/shared/factories/locationService.js"></script>
         <script type="text/javascript" src="app/shared/factories/listService.js"></script>
         <script type="text/javascript" src="app/shared/factories/runService.js"></script>
         <script type="text/javascript" src="app/shared/factories/reminderService.js"></script>
         <script type="text/javascript" src="app/shared/factories/dbService.js"></script>
-        <script type="text/javascript" src="app/shared/factories/throttleService.js"></script>
         <script type="text/javascript" src="app/main.js"></script>
     </head>
 
-    <body ui-view="main">
+    <body>
+        <ons-sliding-menu main-page="app/components/reminders/remindersView.html" type="overlay" menu-page="app/shared/main/mainMenu.html" type="push" var="menu">
+        </ons-sliding-menu>
     </body>
 
 </html>

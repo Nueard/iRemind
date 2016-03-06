@@ -31,7 +31,6 @@ app.controller('createReminderController', ['$scope', '$state', 'listService', '
         }
 
         $scope.select = function (result) {
-            console.log(result);
             $scope.form.selected = result;
             $scope.form.place = result.name;
         }

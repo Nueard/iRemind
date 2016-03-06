@@ -16,8 +16,17 @@ app.factory('listService', ['dbService', 'locationService',
             })
         }
 
-        var append = function (id, locations) {
-
+        var edit = function (id, locations) {
+            var query = "DELETE FROM locations WHERE list_id = " + id;
+            var res = dbService.exec(query, []);
+            res.then(function (res) {
+                locations.forEach(function (location) {
+                    location.list_id = id;
+                    locationService.add(location);
+                })
+            }, function (err) {
+                console.error(err);
+            })
         }
 
         var del = function (id) {
@@ -37,7 +46,7 @@ app.factory('listService', ['dbService', 'locationService',
 
         return {
             add: add,
-            append: append,
+            edit: edit,
             get: get,
             delete: del
         };

@@ -1,10 +1,46 @@
-<ul class="list">
-    <li class="list__item" ng-repeat="list in lists">
-        <div style="width:100%;">
-            {{list.name | limitTo:20}}
-            <span class="pull-right">
-                <i class="zmdi zmdi-delete" ng-click="delete(list)"></i>
-            </span>
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button ng-click="menu.toggleMenu()">
+                <ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon>
+            </ons-toolbar-button>
         </div>
-    </li>
-</ul>
+        <div class="center">Location lists</div>
+    </ons-toolbar>
+    <div ng-controller="listsController">
+
+        <button class="fab fab--bottom__right" ui-sref="main.lists.create">
+            <i class="zmdi zmdi-plus zmdi-hc-lg"></i>
+        </button>
+
+        <ons-list>
+            <ons-list-item ng-repeat="list in lists">
+                <!-- <div class="list-item-left" ng-if="list.edit">
+                    <i class="zmdi zmdi-map zmdi-hc-lg fadeInLeft mdc-text-grey" ng-click="editList(list)"></i>
+                </div>
+                <div class="list-item-center">
+                    <div class="list__item__title list__item--material__title">
+                        <span ng-if="list.edit">
+                            <input class="text-input--material full-width" placeholder="List name" ng-model="list.rename" type="text" />
+                        </span>
+                        <span ng-if="!list.edit"> -->
+                            {{list.name | limitTo:20}}
+                        <!-- </span>
+                    </div>
+                </div>
+                <div class="list-item-right">
+                    <span ng-if="list.edit">
+                    <i class="zmdi zmdi-check zmdi-hc-lg mdc-text-grey" ng-click="save(list)"></i>
+                </span>
+                    <span ng-if="!list.edit">
+                    <i class="zmdi zmdi-edit mdc-text-grey" ng-click="toggleEdit(list)"></i>
+                </span>
+                </div> -->
+            </ons-list-item>
+            <ons-list-item onclick="menu.setMainPage('app/components/lists/create/createListView.html', {closeMenu: true})">
+                <ons-icon icon="fa-plus" size="20px"></ons-icon>
+                Create a new list
+            </ons-list-item>
+        </ons-list>
+    </div>
+</ons-page>
