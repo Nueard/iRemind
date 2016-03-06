@@ -18,7 +18,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular-ui-router": "~0.2.15",
     "ngCordova": "~0.1.24-alpha",
     "onsenui": "2.0.0-beta.7",
     "material-design-color-palette": "^1.1.0"
