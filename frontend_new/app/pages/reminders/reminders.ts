@@ -11,7 +11,7 @@ export class Reminders {
         this.nav = nav;
     }
 
-    createReminder() {
+    create() {
         this.nav.push(CreateReminder);
     }
 }

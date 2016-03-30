@@ -1,8 +1,7 @@
-<ion-navbar *navbar>
-    <ion-title>Select location list</ion-title>
+<ion-navbar *navbar [hideBackButton]="true">
+    <ion-searchbar [(ngModel)]="searchbar" (input)="getItems($event)" (cancel)="onCancel($event)"></ion-searchbar>
 </ion-navbar>
 <ion-content>
-    <ion-searchbar [(ngModel)]="searchQuery" (input)="getItems($event)"></ion-searchbar>
     <ion-list>
         <ion-item *ngFor="#item of items" (click)="selectLocation(item)">
             {{ item }}

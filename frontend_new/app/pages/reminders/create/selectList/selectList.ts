@@ -9,8 +9,9 @@ export class SelectList {
     nav: any;
     items = [];
     initItems = [];
-    searchQuery = '';
+    searchbar: any;
     form : any;
+    inpt: any;
 
     constructor(nav: NavController, navParams: NavParams) {
         this.nav = nav;
@@ -48,5 +49,9 @@ export class SelectList {
             page: CreateReminder,
             params: {form: this.form}
         }])
+    }
+
+    onCancel(searchbar) {
+        this.nav.pop();
     }
 }
