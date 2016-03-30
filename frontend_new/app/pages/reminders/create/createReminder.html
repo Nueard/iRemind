@@ -1,0 +1,42 @@
+<ion-navbar *navbar>
+    <ion-title>Create reminder</ion-title>
+    <ion-buttons end>
+        <button royal>
+            <ion-icon name="checkmark"></ion-icon> Save
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+<ion-content>
+    <ion-item>
+        <ion-label floating>Name</ion-label>
+        <ion-input type="text" [(ngModel)]="form.name"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating>Note</ion-label>
+        <ion-input type="text" [(ngModel)]="form.note"></ion-input>
+    </ion-item>
+    {{form.location}}
+    <button clear (click)="selectList()">
+        Select list
+    </button>
+    <div class="ionic" style="margin-top:20px">
+        <div class="range-label">
+            Trigger radius
+        </div>
+        <div class="range">
+            <ion-icon name="locate" class="icon"></ion-icon>
+            <input type="range" [(ngModel)]="form.radius" min="0" max="100">
+            <span item-right style="min-width:40px;text-align:right;">{{form.radius}} m</span>
+        </div>
+    </div>
+    <div class="ionic">
+        <div class="range-label">
+            Notification
+        </div>
+        <div class="range">
+            <ion-icon name="volume-up" class="icon"></ion-icon>
+            <input type="range" [(ngModel)]="form.notification" min="0" max="100">
+        </div>
+    </div>
+</ion-content>
