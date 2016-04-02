@@ -25,7 +25,9 @@ export class MyApp {
     constructor(private app: IonicApp, private menu: MenuController, platform: Platform, private geofenceService: GeofenceService) {
         platform.ready().then(() => {
             StatusBar.styleDefault();
-            this.geofenceService.init();
+            if (window.geofence != undefined) {
+                this.geofenceService.init();
+            }
         });
     }
 

@@ -1,26 +1,31 @@
 import {Page, NavController, Platform, Alert, Storage, SqlStorage} from 'ionic-angular';
 import {ListService, List} from '../../../services/listService';
 import {Lists} from '../lists';
+import {Geolocation} from 'ionic-native';
 
 declare var google: any;
 
 @Page({
-    templateUrl: 'build/pages/lists/create/createList.html'
+    templateUrl: 'build/pages/lists/create/createList.html',
+    providers: [Geolocation]
 })
 export class CreateList {
     map: any;
     markers: any = [];
     search: any = "";
 
-    constructor(platform: Platform, private nav: NavController, private listService: ListService) {
+    constructor(platform: Platform,
+        private nav: NavController,
+        private listService: ListService,
+        private geolocation: Geolocation) {
         platform.ready().then(() => {
             this.loadMap();
         });
     }
 
     loadMap() {
-        let options = { timeout: 10000, enableHighAccuracy: true };
-        navigator.geolocation.getCurrentPosition(
+        let options = { timeout: 1000, enableHighAccuracy: true };
+        Geolocation.getCurrentPosition(options).then(
             (position) => {
                 let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 let mapOptions = {
@@ -34,9 +39,20 @@ export class CreateList {
                 this.addMarker(latLng, false);
             },
             (error) => {
-                console.log(error);
-            }, options
-        );
+                let alert = Alert.create({
+                    title: 'Something went wrong',
+                    subTitle: 'We couldn\'t get your location, maybe location services are off?',
+                    buttons: [
+                        {
+                            text: 'OK',
+                            handler: () => {
+                                this.nav.setRoot(Lists);
+                            }
+                        }
+                    ]
+                });
+                this.nav.present(alert);
+            });
     }
 
     addMarker = (position, removable: boolean) => {
@@ -99,8 +115,8 @@ export class CreateList {
             this.nav.present(alert);
         }
     }
-    
-    
+
+
 
     save() {
         let alert = Alert.create({
