@@ -11,7 +11,7 @@
                 <ion-icon name="chevron-down" item-right></ion-icon>
             </ion-item>
             <ion-item (click)="goPage(rootPage)">
-                <ion-icon name="alarm" item-left></ion-icon>
+                <ion-icon name="home" item-left></ion-icon>
                 Reminders
             </ion-item>
             <ion-item (click)="goPage(locations)">
@@ -38,3 +38,7 @@
 </ion-menu>
 
 <ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>
+<!-- <ion-tabs primary>
+    <ion-tab tabTitle="Reminders" [root]="tab1"></ion-tab>
+    <ion-tab tabTitle="Locations" [root]="tab2"></ion-tab>
+</ion-tabs> -->

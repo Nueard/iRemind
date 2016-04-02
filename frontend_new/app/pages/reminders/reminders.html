@@ -1,41 +1,27 @@
-<ion-navbar *navbar>
-  <ion-title>Reminders</ion-title>
+<ion-navbar *navbar primary>
+    <button menuToggle>
+        <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>Reminders</ion-title>
 </ion-navbar>
-
 <ion-content>
     <ion-list>
-        <ion-item>
-            Joro mesqrq
-            <ion-icon primary name="star" item-right></ion-icon>
-        </ion-item>
-        <ion-item>
-            Joro mesqrq
-            <ion-icon name="star-outline" item-right></ion-icon>
-        </ion-item>
-        <ion-item>
-            Joro mesqrq
-            <ion-icon primary name="star" item-right></ion-icon>
-        </ion-item>
-        <ion-item>
-            Joro mesqrq
-            <ion-icon name="star-outline" item-right></ion-icon>
-        </ion-item>
-        <ion-item>
-            Joro mesqrq
-            <ion-icon name="star-outline" item-right></ion-icon>
-        </ion-item>
-        <ion-item>
-            Joro mesqrq
-            <ion-icon name="star-outline" item-right></ion-icon>
-        </ion-item>
-        <ion-item>
-            Joro mesqrq
-            <ion-icon primary name="star" item-right></ion-icon>
-        </ion-item>
-        <ion-item>
-            Joro mesqrq
-            <ion-icon name="star-outline" item-right></ion-icon>
+        <ion-item *ngFor="#reminder of reminders">
+            {{ reminder.name }}
+            <button clear item-right (click)="expand(reminder)">
+                <ion-icon name="arrow-up" *ngIf="expandedId == reminder.id"></ion-icon>
+                <ion-icon name="arrow-down" *ngIf="expandedId != reminder.id"></ion-icon>
+            </button>
+            <div *ngIf="expandedId == reminder.id">
+                <p>Note: {{ reminder.note }}</p>
+                <p>Volume: {{ reminder.volume }}</p>
+                <p>Radius: {{ reminder.radius }}</p>
+                <p>Active: {{ reminder.active }}</p>
+                <p>Favourite: {{ reminder.favourite }}</p>
+            </div>
         </ion-item>
     </ion-list>
-    <button fab fab-right fab-bottom (click)="create()"><ion-icon name="add"></ion-icon></button>
 </ion-content>
+<button fab fab-right fab-bottom (click)="create()" class="fab">
+    <ion-icon name="add"></ion-icon>
+</button>

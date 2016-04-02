@@ -3,8 +3,8 @@
 </ion-navbar>
 <ion-content>
     <ion-list>
-        <ion-item *ngFor="#item of items" (click)="selectLocation(item)">
-            {{ item }}
+        <ion-item *ngFor="#list of items" (click)="selectLocation(list)">
+            {{ list.name }}
         </ion-item>
     </ion-list>
 </ion-content>

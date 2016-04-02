@@ -2,27 +2,30 @@ import {App, Platform, IonicApp, MenuController} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {Reminders} from './pages/reminders/reminders';
 import {Settings} from './pages/settings/settings';
-import {Locations} from './pages/locations/locations';
+import {Lists} from './pages/lists/lists';
 
+import {LocationService} from './services/locationService';
+import {ListService} from './services/listService';
+import {DbService} from './services/dbService';
+import {ReminderService} from './services/reminderService';
+import {GeofenceService} from './services/geofenceService';
+
+declare var window: any;
 
 @App({
-  templateUrl: 'build/app.html',
-  config: {} // http://ionicframework.com/docs/v2/api/config/Config/
+    templateUrl: 'build/app.html',
+    config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+    providers: [DbService, ListService, LocationService, ReminderService, GeofenceService]
 })
 export class MyApp {
     rootPage = Reminders;
     settings = Settings;
-    locations = Locations;
-    app: any;
-    menu: any;
+    locations = Lists;
 
-    constructor(app :IonicApp, platform: Platform, menu: MenuController) {
-        this.app = app;
-        this.menu = menu;
+    constructor(private app: IonicApp, private menu: MenuController, platform: Platform, private geofenceService: GeofenceService) {
         platform.ready().then(() => {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
             StatusBar.styleDefault();
+            this.geofenceService.init();
         });
     }
 

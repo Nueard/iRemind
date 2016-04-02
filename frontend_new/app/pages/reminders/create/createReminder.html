@@ -1,7 +1,7 @@
 <ion-navbar *navbar>
     <ion-title>Create reminder</ion-title>
     <ion-buttons end>
-        <button royal>
+        <button royal (click)="create()">
             <ion-icon name="checkmark"></ion-icon>
         </button>
     </ion-buttons>
@@ -16,7 +16,9 @@
         <ion-label floating>Note</ion-label>
         <ion-input type="text" [(ngModel)]="form.note"></ion-input>
     </ion-item>
-    {{form.location}}
+    <p>
+        {{form.list.name}}
+    </p>
     <button clear (click)="selectList()">
         Select list
     </button>
@@ -36,7 +38,7 @@
         </div>
         <div class="range">
             <ion-icon name="volume-up" class="icon"></ion-icon>
-            <input type="range" [(ngModel)]="form.notification" min="0" max="100">
+            <input type="range" [(ngModel)]="form.volume" min="0" max="100">
         </div>
     </div>
 </ion-content>

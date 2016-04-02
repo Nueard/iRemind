@@ -1,7 +1,11 @@
-<ion-navbar *navbar>
+<ion-navbar *navbar primary>
+    <button menuToggle>
+        <ion-icon name='menu'></ion-icon>
+    </button>
   <ion-title>Settings</ion-title>
 </ion-navbar>
 
 <ion-content padding class="page1">
-  <h2>Lel, nothing here yet!</h2>
+  <button (click)="wipe()">WIPE ME CLEAN</button>
+  <button (click)="test()">TEST</button>
 </ion-content>

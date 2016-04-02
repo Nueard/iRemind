@@ -1,48 +1,44 @@
 import {Page, NavController, NavParams} from 'ionic-angular';
 import {CreateReminder} from '../createReminder';
 import {Reminders} from '../../reminders';
+import {ListService} from '../../../../services/listService';
 
 @Page({
     templateUrl: 'build/pages/reminders/create/selectList/selectList.html'
 })
 export class SelectList {
-    nav: any;
     items = [];
-    initItems = [];
-    searchbar: any;
+    lists = [];
+    searchbar: any = "";
     form : any;
     inpt: any;
 
-    constructor(nav: NavController, navParams: NavParams) {
-        this.nav = nav;
-        this.initItems = ['joro', 'e', 'gei', 'i', 'lapa', 'pishki'];
-        this.initialiseItems();
+    constructor(private nav: NavController, private listService: ListService, navParams: NavParams) {
+        this.listService.getAll().then((lists) => {
+            this.lists = lists;
+            this.items = lists;
+        });
         this.form = navParams.get("form");
     }
 
-    initialiseItems() {
-        this.items = this.initItems;
-    }
-
     getItems(searchbar) {
-        this.initialiseItems();
-
         var q = searchbar.value;
 
         if (q.trim() == '') {
+            this.items = this.lists;
             return;
         }
 
-        this.items = this.items.filter((v) => {
-            if (v.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+        this.items = this.lists.filter((v) => {
+            if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
                 return true;
             }
             return false;
         })
     }
 
-    selectLocation(location) {
-        this.form.location = location;
+    selectLocation(list) {
+        this.form.list = list;
         this.nav.setPages([{
             page: Reminders
         }, {

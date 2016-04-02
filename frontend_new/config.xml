@@ -5,12 +5,7 @@
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
+    <allow-intent href="http://*.googleapis.com/*" />
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
@@ -33,4 +28,5 @@
     <plugin name="cordova-plugin-statusbar" spec="~2.1.2" />
     <plugin name="ionic-plugin-keyboard" spec="~2.0.1" />
     <plugin name="cordova-plugin-geolocation" spec="~2.1.0" />
+    <plugin name="cordova-plugin-geofence" spec="~0.5.0" />
 </widget>
