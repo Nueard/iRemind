@@ -42,8 +42,6 @@ export class GeofenceService {
     sync() {
         this.locationService.getActive().then((dbLocations) => {
             this.get().then((gfLocations) => {
-                console.log(gfLocations);
-                console.log(dbLocations);
                 // Check if dbLocations are not in geofence
                 _.forEach(dbLocations, (dbLocation) => {
                     let index = _.findIndex(gfLocations, (location: any) => {
@@ -76,21 +74,25 @@ export class GeofenceService {
     remove(id: number) {
         window.geofence.remove(id).then(
             (suc) => { },
-            (err) => { console.error(err); }
+            this.err
         );
     }
 
     add(locations: Array<Geofence>) {
-        window.geofence.addOrUpdate(locations);
+        window.geofence.addOrUpdate(locations).then(
+            () => { },
+            this.err);
     }
 
     get() {
-        return window.geofence.getWatched().then((geofences) => {
-            return JSON.parse(geofences);
-        });
+        return window.geofence.getWatched().then(
+            (geofences) => {
+                return JSON.parse(geofences);
+            },
+            this.err);
     }
 
-    test() {
-        this.sync();
+    err(err) {
+        console.error(err);
     }
 }

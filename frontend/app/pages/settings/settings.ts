@@ -14,10 +14,7 @@ export class Settings {
         this.dbService.wipe();
     }
     
-    test() {
-        this.geofenceService.test();
-        this.locationService.get(-1).then((locations) => {
-            console.log(locations);
-        });
+    sync() {
+        this.geofenceService.sync();
     }
 }

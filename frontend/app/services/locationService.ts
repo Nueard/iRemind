@@ -15,15 +15,14 @@ export class LocationService {
     }
 
     add(location) {
-        console.log(location);
         var query =
             "INSERT INTO locations (list, latitude, longitude, name) VALUES (?,?,?,?)";
         var params = [location.list, location.latitude, location.longitude,
             location.name
         ];
         this.dbService.exec(query, params).then(
-            (res) => { console.log(res); },
-            (err) => { console.error(err); }
+            (res) => { },
+            this.err
         );
     }
 
@@ -34,17 +33,17 @@ export class LocationService {
         } else {
             query = "SELECT * FROM locations";
         }
-        return this.dbService.exec(query, []).then(this.getResults);
+        return this.dbService.exec(query, []).then(this.getResults, this.err);
     }
 
     getByList(id) {
         let query = "SELECT * FROM locations WHERE list = " + id;
-        return this.dbService.exec(query, []).then(this.getResults);
+        return this.dbService.exec(query, []).then(this.getResults, this.err);
     }
 
     getActive() {
         let query = "SELECT * FROM reminders JOIN locations ON locations.list = reminders.list WHERE active = 1";
-        return this.dbService.exec(query, []).then(this.getResults);
+        return this.dbService.exec(query, []).then(this.getResults, this.err);
     }
 
     getResults = (response) => {
@@ -53,5 +52,9 @@ export class LocationService {
             data.push(response.res.rows.item(i));
         }
         return data;
+    }
+
+    err(err) {
+        console.error(err);
     }
 }

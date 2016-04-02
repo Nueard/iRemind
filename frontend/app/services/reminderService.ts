@@ -19,22 +19,22 @@ export class ReminderService {
         var query =
             "INSERT INTO reminders (list, name, note, radius, volume, active, favourite) VALUES (?,?,?,?,?,?,?)";
         var params = [reminder.list, reminder.name, reminder.note, reminder.radius, reminder.volume, reminder.active, reminder.favourite];
-        return this.dbService.exec(query, params);
+        this.dbService.exec(query, params).then(() => {}, this.err);;
     }
 
     get() {
         var query = "SELECT * FROM reminders";
-        return this.dbService.exec(query, []).then(this.getResults);
+        return this.dbService.exec(query, []).then(this.getResults, this.err);
     }
 
     del(id) {
         var query = "DELETE FROM reminders WHERE id = " + id;
-        return this.dbService.exec(query, []);
+        this.dbService.exec(query, []).then(() => {}, this.err);;
     }
 
     setActive(id, active) {
         var query = "UPDATE reminders SET active = " + active + " WHERE id = " + id;
-        return this.dbService.exec(query, []);
+        this.dbService.exec(query, []).then(() => {}, this.err);
     }
 
     getResults = (response) => {
@@ -43,5 +43,9 @@ export class ReminderService {
             data.push(response.res.rows.item(i));
         }
         return data;
+    }
+
+    err(err) {
+        console.error(err);
     }
 }
