@@ -1,0 +1,20 @@
+# Mac
+.DS_Store
+
+# App dependencies
+www/assets/lib
+platforms
+plugins
+
+# res
+resources/signing
+
+#windows
+Thumbs.db
+Desktop.ini
+
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+log.txt

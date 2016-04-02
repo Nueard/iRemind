@@ -27,6 +27,7 @@ export class GeofenceService {
     }
 
     private triggerCallback = (geofences) => {
+        console.log("ENTERED GEOFENCE");
         geofences.forEach((geo) => {
             console.log('Geofence transition detected', geo);
             LocalNotifications.schedule({
