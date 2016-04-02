@@ -1,5 +1,6 @@
 import {DbService} from './dbService';
 import {Injectable} from 'angular2/core';
+import * as _ from 'lodash';
 
 export interface Location {
     list: number,
@@ -24,6 +25,13 @@ export class LocationService {
             (res) => { },
             this.err
         );
+    }
+
+    batchAdd(locations: Array<Location>, listId: number) {
+        _.forEach(locations, (location) => {
+            location.list = listId;
+            this.add(location);
+        });
     }
 
     get(id: number) {

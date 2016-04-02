@@ -37,7 +37,7 @@ export class CreateReminder {
             active: 1,
             favourite: 0
         }
-        this.reminderService.add(reminder).then((res) => { console.log(res); });
+        this.reminderService.add(reminder);
         this.nav.setRoot(Reminders);
     }
 }

@@ -16,10 +16,7 @@ export class ListService {
         var query = "INSERT INTO lists (name) VALUES (?)";
         var params = [list.name];
         var res = this.dbService.exec(query, params).then((res) => {
-            list.locations.forEach((location) => {
-                location.list = res.res.insertId;
-                this.locationService.add(location);
-            })
+            this.locationService.batchAdd(list.locations, res.res.id);
         }, this.err);
     }
 
@@ -27,10 +24,7 @@ export class ListService {
         let query = "DELETE FROM locations WHERE list = (?)";
         let params = [id];
         var res = this.dbService.exec(query, params).then((res) => {
-            locations.forEach((location) => {
-                location.list = id;
-                this.locationService.add(location);
-            })
+            this.locationService.batchAdd(locations, id);
         }, this.err);
     }
 
