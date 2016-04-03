@@ -2,6 +2,7 @@ import {DbService} from './dbService';
 import {LocationService} from './locationService';
 import {Injectable} from 'angular2/core';
 import {Location} from './locationService';
+import {GeofenceService} from './geofenceService';
 
 export interface List {
     name: string,
@@ -11,12 +12,15 @@ export interface List {
 
 @Injectable()
 export class ListService {
-    constructor(private dbService: DbService, private locationService: LocationService) { }
+    constructor(
+        private dbService       : DbService,
+        private locationService : LocationService,
+        private geofenceService : GeofenceService) { }
 
     add(list: List) {
         var query = "INSERT INTO lists (name, favourite) VALUES (?,?)";
         var params = [list.name, list.favourite];
-        var res = this.dbService.exec(query, params).then((res) => {
+        this.dbService.exec(query, params).then((res) => {
             this.locationService.batchAdd(list.locations, res.res.id);
         }, this.err);
     }
@@ -25,7 +29,9 @@ export class ListService {
         let query = "DELETE FROM locations WHERE list = (?)";
         let params = [id];
         this.dbService.exec(query, params).then((res) => {
-            this.locationService.batchAdd(locations, id);
+            this.locationService.batchAdd(locations, id).then(() => {
+                this.geofenceService.sync();
+            });
         }, this.err);
     }
 
@@ -33,10 +39,10 @@ export class ListService {
         let query = "UPDATE lists SET favourite = (?) WHERE id = (?)";
         let params = [favourite, id];
         this.dbService.exec(query, params).then(
-            (res) => { }, 
+            (res) => { },
             this.err);
     }
-    
+
     getFavourites() {
         let query = "SELECT * FROM lists WHERE favourite = (?)";
         let params = [1]
@@ -46,14 +52,12 @@ export class ListService {
     del(id: number) {
         var query = "DELETE FROM lists WHERE id = ?";
         let params = [id];
-        return this.dbService.exec(query, params).then(this.getResults, this.err);
+        this.dbService.exec(query, params).then((succ) => {
+            this.geofenceService.sync();
+        }, this.err);
     }
 
-    get(q: string) {
-        let query = "SELECT * FROM lists WHERE name LIKE '%?%'";
-        let params = [q];
-        return this.dbService.exec(query, params).then(this.getResults, this.err);
-    }
+ 
 
     getAll() {
         let query = "SELECT * FROM lists";

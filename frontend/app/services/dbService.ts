@@ -1,5 +1,7 @@
 import {Storage, SqlStorage} from 'ionic-angular';
+import {Injectable} from 'angular2/core';
 
+@Injectable()
 export class DbService {
     db: Storage = null;
     createQueries: Array<string>;
@@ -21,7 +23,6 @@ export class DbService {
         })
     }
 
-    // Executes query
     exec(query, params) {
         if (this.db != null) {
             return this.db.query(query, params);

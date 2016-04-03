@@ -11,8 +11,7 @@ export interface Location {
 @Injectable()
 export class LocationService {
 
-    constructor(private dbService: DbService) {
-    }
+    constructor(private dbService: DbService) { }
 
     add(location) {
         var query =
@@ -20,17 +19,19 @@ export class LocationService {
         var params = [location.list, location.latitude, location.longitude,
             location.name
         ];
-        this.dbService.exec(query, params).then(
+        return this.dbService.exec(query, params).then(
             (res) => { },
             this.err
         );
     }
 
     batchAdd(locations: Array<Location>, listId: number) {
+        let promises = [];
         locations.forEach((location) => {
             location.list = listId;
-            this.add(location);
+            promises.push(this.add(location));
         });
+        return Promise.all(promises);
     }
 
     get(id: number) {

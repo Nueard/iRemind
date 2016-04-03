@@ -16,13 +16,15 @@ export interface Geofence {
 @Injectable()
 export class GeofenceService {
     geofences: Array<Geofence>
+    initialised: boolean = false;
 
-    constructor(private reminderService: ReminderService, private locationService: LocationService) { }
+    constructor(private locationService: LocationService) { }
 
     init = () => {
         window.geofence.initialize();
         this.sync();
         window.geofence.onTransitionReceived = this.triggerCallback;
+        this.initialised = true;
     }
 
     private triggerCallback = (geofences) => {
@@ -39,35 +41,41 @@ export class GeofenceService {
     }
 
     sync() {
-        this.locationService.getActive().then((dbLocations) => {
-            this.get().then((gfLocations) => {
-                // Check if dbLocations are not in geofence
-                dbLocations.forEach((dbLocation) => {
-                    let index = gfLocations.findIndex((location: any) => {
-                        return location.id == dbLocation.id;
-                    })
-                    if (index == -1) {
-                        let location: Geofence = {
-                            id: dbLocation.id,
-                            latitude: dbLocation.latitude,
-                            longitude: dbLocation.longitude,
-                            radius: dbLocation.radius,
-                            transitionType: 1
+        if (this.initialised) {
+            this.locationService.getActive().then((dbLocations) => {
+                this.get().then((gfLocations) => {
+                    console.log(dbLocations);
+                    console.log(gfLocations);
+                    // Check if dbLocations are not in geofence
+                    dbLocations.forEach((dbLocation) => {
+                        let index = gfLocations.findIndex((location: any) => {
+                            return location.id == dbLocation.id;
+                        })
+                        if (index == -1) {
+                            let location: Geofence = {
+                                id: dbLocation.id,
+                                latitude: dbLocation.latitude,
+                                longitude: dbLocation.longitude,
+                                radius: dbLocation.radius,
+                                transitionType: 1
+                            }
+                            this.add([location]);
                         }
-                        this.add([location]);
-                    }
-                });
-                // Check if gfLocations are in geofence but removed from DB
-                gfLocations.forEach((gfLocation) => {
-                    let index = dbLocations.findIndex((location: any) => {
-                        return location.id == gfLocation.id;
-                    })
-                    if (index == -1) {
-                        this.remove(gfLocation.id);
-                    }
+                    });
+                    // Check if gfLocations are in geofence but removed from DB
+                    gfLocations.forEach((gfLocation) => {
+                        let index = dbLocations.findIndex((location: any) => {
+                            return location.id == gfLocation.id;
+                        })
+                        if (index == -1) {
+                            this.remove(gfLocation.id);
+                        }
+                    });
                 });
             });
-        });
+        } else {
+            console.error("GeofenseService not initialized");
+        }
     }
 
     remove(id: number) {

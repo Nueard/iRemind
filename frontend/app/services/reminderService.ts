@@ -1,5 +1,6 @@
-import {Injectable} from 'angular2/core';
+import {Injectable, Inject, forwardRef} from 'angular2/core';
 import {DbService} from './dbService';
+import {GeofenceService} from './geofenceService';
 
 export interface Reminder {
     list: number,
@@ -12,13 +13,17 @@ export interface Reminder {
 
 @Injectable()
 export class ReminderService {
-    constructor(private dbService: DbService) { }
+    constructor(
+        private geofenceService: GeofenceService,
+        private dbService: DbService) { }
 
     add(reminder) {
         var query =
             "INSERT INTO reminders (list, name, note, radius, volume, active) VALUES (?,?,?,?,?,?)";
         var params = [reminder.list, reminder.name, reminder.note, reminder.radius, reminder.volume, reminder.active];
-        this.dbService.exec(query, params).then(() => {}, this.err);;
+        this.dbService.exec(query, params).then((res) => {
+            this.geofenceService.sync();
+        }, this.err);
     }
 
     get() {
@@ -28,12 +33,16 @@ export class ReminderService {
 
     del(id) {
         var query = "DELETE FROM reminders WHERE id = " + id;
-        this.dbService.exec(query, []).then(() => {}, this.err);;
+        this.dbService.exec(query, []).then((res) => {
+            this.geofenceService.sync();
+        }, this.err);
     }
 
     setActive(id, active) {
         var query = "UPDATE reminders SET active = " + active + " WHERE id = " + id;
-        this.dbService.exec(query, []).then(() => {}, this.err);
+        this.dbService.exec(query, []).then((res) => {
+            this.geofenceService.sync();
+        }, this.err);
     }
 
     getResults = (response) => {

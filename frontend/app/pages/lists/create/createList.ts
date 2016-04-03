@@ -138,10 +138,8 @@ export class CreateList {
                         if (data.name.trim().length != 0) {
                             let locations = [];
                             this.markers.forEach((marker) => {
-                                console.log(marker);
                                 let lat = marker.position.lat();
                                 let lng = marker.position.lng();
-                                console.log(lat, lng);
                                 locations.push({
                                     name: "Custom location",
                                     latitude: lat,

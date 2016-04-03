@@ -16,7 +16,7 @@ declare var window: any;
 @App({
     templateUrl: 'build/app.html',
     config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
-    providers: [DbService, ListService, LocationService, ReminderService, GeofenceService]
+    providers: [GeofenceService, DbService, ReminderService, ListService, LocationService]
 })
 export class MyApp {
     rootPage = Reminders;
@@ -25,7 +25,14 @@ export class MyApp {
     lists = [];
     nav: any;
 
-    constructor(private app: IonicApp, private menu: MenuController, platform: Platform, private geofenceService: GeofenceService, private listService: ListService) {
+    constructor(
+        private app: IonicApp,
+        private menu: MenuController,
+        private geofenceService: GeofenceService,
+        private listService: ListService,
+        private reminderService: ReminderService,
+        platform: Platform)
+    {
         platform.ready().then(() => {
             StatusBar.styleDefault();
             if (window.geofence != undefined) {
@@ -42,7 +49,7 @@ export class MyApp {
         this.menu.close();
         this.nav.setRoot(page);
     }
-    
+
     createReminder(list) {
         let form = {
             name: "",
@@ -52,6 +59,6 @@ export class MyApp {
             volume: 50
         }
         this.menu.close();
-        this.nav.push(CreateReminder,{form: form});
+        this.nav.push(CreateReminder, { form: form });
     }
 }
