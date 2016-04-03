@@ -2,7 +2,6 @@ import {Injectable} from 'angular2/core';
 import {ReminderService} from './reminderService';
 import {LocationService} from './locationService';
 import {LocalNotifications} from 'ionic-native';
-import * as _ from 'lodash';
 
 declare var window: any;
 
@@ -43,8 +42,8 @@ export class GeofenceService {
         this.locationService.getActive().then((dbLocations) => {
             this.get().then((gfLocations) => {
                 // Check if dbLocations are not in geofence
-                _.forEach(dbLocations, (dbLocation) => {
-                    let index = _.findIndex(gfLocations, (location: any) => {
+                dbLocations.forEach((dbLocation) => {
+                    let index = gfLocations.findIndex((location: any) => {
                         return location.id == dbLocation.id;
                     })
                     if (index == -1) {
@@ -59,8 +58,8 @@ export class GeofenceService {
                     }
                 });
                 // Check if gfLocations are in geofence but removed from DB
-                _.forEach(gfLocations, (gfLocation) => {
-                    let index = _.findIndex(dbLocations, (location: any) => {
+                gfLocations.forEach((gfLocation) => {
+                    let index = dbLocations.findIndex((location: any) => {
                         return location.id == gfLocation.id;
                     })
                     if (index == -1) {

@@ -1,5 +1,5 @@
-import {Page, NavController, NavParams} from 'ionic-angular';
-import {SelectList} from './selectList/selectList';
+import {Page, NavController, Alert, NavParams} from 'ionic-angular';
+import {ListService} from '../../../services/listService';
 import {ReminderService, Reminder} from '../../../services/reminderService';
 import {Reminders} from '../reminders';
 
@@ -8,6 +8,7 @@ import {Reminders} from '../reminders';
 })
 export class CreateReminder {
     items = [];
+    lists = [];
     form = {
         name: "",
         note: "",
@@ -17,14 +18,35 @@ export class CreateReminder {
         radius: 50,
         volume: 50
     };
-    constructor(private nav: NavController, private reminderService: ReminderService, navParams: NavParams) {
+    constructor(private nav: NavController, private listService: ListService, private reminderService: ReminderService, navParams: NavParams) {
         if (navParams.get("form")) {
             this.form = navParams.get("form");
         }
+        this.listService.getAll().then((lists) => {
+            this.lists = lists;
+        });
     }
 
     selectList() {
-        this.nav.push(SelectList, { form: this.form });
+        this.listService.getAll().then((lists) => {
+            let alert = Alert.create();
+            alert.setTitle('Choose list');
+            lists.forEach((list, index) => {
+                alert.addInput({
+                    type: 'radio',
+                    label: list.name,
+                    value: list,
+                    checked: index == 0
+                });
+            })
+            alert.addButton({
+                text: 'Ok',
+                handler: data => {
+                    this.form.list = data;
+                }
+            });
+            this.nav.present(alert);
+        });
     }
 
     create() {

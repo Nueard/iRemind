@@ -5,25 +5,22 @@
     <ion-title>Reminders</ion-title>
 </ion-navbar>
 <ion-content>
-    <ion-list>
+    <ion-list *ngIf="reminders.length > 0">
         <ion-item *ngFor="#reminder of reminders">
-            <!--<button clear item-left (click)="expand(reminder)">
-                <ion-icon name="arrow-up" *ngIf="expandedId == reminder.id"></ion-icon>
-                <ion-icon name="arrow-down" *ngIf="expandedId != reminder.id"></ion-icon>
-            </button>-->
             <ion-label>
                 {{ reminder.name }}
             </ion-label>
             <ion-toggle checked="{{reminder.active}}" (click)="toggleActive(reminder)"></ion-toggle>
-            <!--<div *ngIf="expandedId == reminder.id">
-                <p>Note: {{ reminder.note }}</p>
-                <p>Volume: {{ reminder.volume }}</p>
-                <p>Radius: {{ reminder.radius }}</p>
-                <p>Active: {{ reminder.active }}</p>
-                <p>Favourite: {{ reminder.favourite }}</p>
-            </div>-->
         </ion-item>
     </ion-list>
+    <ion-card *ngIf="reminders.length == 0">
+        <ion-card-header>
+            You have no reminders yet
+        </ion-card-header>
+        <ion-card-content>
+            To create a new reminder please click the plus in the bottom right corner. Remember, you need to create a list first :)
+        </ion-card-content>
+    </ion-card>
 </ion-content>
 <button fab fab-right fab-bottom (click)="create()" class="fab">
     <ion-icon name="add"></ion-icon>

@@ -6,12 +6,20 @@
 </ion-navbar>
 
 <ion-content>
-    <ion-list>
+    <ion-list *ngIf="lists.length > 0">
         <ion-item *ngFor="#list of lists">
             {{ list.name }}
             <ion-icon primary name="star" item-right></ion-icon>
         </ion-item>
     </ion-list>
+    <ion-card *ngIf="lists.length == 0">
+        <ion-card-header>
+            You have no lists yet
+        </ion-card-header>
+        <ion-card-content>
+            To create a new list please click the plus in the bottom right corner :)
+        </ion-card-content>
+    </ion-card>
 </ion-content>
 
 <button fab fab-right fab-bottom (click)="create()" class="fab">

@@ -11,7 +11,7 @@ export class Reminders {
 
     constructor(private nav: NavController, private reminderService: ReminderService) {
         this.reminderService.get().then((reminders) => {
-            _.forEach(reminders, (reminder, index) => {
+            reminders.forEach((reminder, index) => {
                 reminders[index].active = reminder.active == 1;
             });
             this.reminders = reminders;

@@ -1,4 +1,4 @@
-<ion-navbar *navbar>
+<ion-navbar *navbar primary>
     <ion-title>Create reminder</ion-title>
     <ion-buttons end>
         <button royal (click)="create()">
@@ -9,19 +9,19 @@
 
 <ion-content>
     <ion-item>
-        <ion-label floating>Name</ion-label>
+        <ion-label>Name</ion-label>
         <ion-input type="text" [(ngModel)]="form.name"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label floating>Note</ion-label>
+        <ion-label>Note</ion-label>
         <ion-input type="text" [(ngModel)]="form.note"></ion-input>
     </ion-item>
-    <p>
-        {{form.list.name}}
-    </p>
-    <button clear (click)="selectList()">
-        Select list
-    </button>
+    <ion-item>
+        <ion-label>List</ion-label>
+        <ion-select [(ngModel)]="form.list">
+            <ion-option *ngFor="#list of lists" [value]="list">{{list.name}}</ion-option>
+        </ion-select>
+    </ion-item>
     <div class="ionic" style="margin-top:20px">
         <div class="range-label">
             Trigger radius
@@ -39,6 +39,7 @@
         <div class="range">
             <ion-icon name="volume-up" class="icon"></ion-icon>
             <input type="range" [(ngModel)]="form.volume" min="0" max="100">
+            <span item-right style="min-width:40px;text-align:right;">{{form.volume}} %</span>
         </div>
     </div>
 </ion-content>
