@@ -9,15 +9,17 @@ import {Reminders} from '../reminders';
 export class CreateReminder {
     items = [];
     lists = [];
+    selectedList: any;
     form = {
         name: "",
         note: "",
         list: {
-            id:-1
+            id: -1
         },
         radius: 50,
         volume: 50
     };
+    
     constructor(private nav: NavController, private listService: ListService, private reminderService: ReminderService, navParams: NavParams) {
         if (navParams.get("form")) {
             this.form = navParams.get("form");
@@ -28,14 +30,19 @@ export class CreateReminder {
     }
 
     create() {
+        let id = -1;
+        if(this.selectedList) {
+            id = this.selectedList.id;
+        } else {
+            id = this.form.list.id;
+        }
         let reminder: Reminder = {
-            list: this.form.list.id,
+            list: id,
             note: this.form.note,
             name: this.form.name,
             radius: this.form.radius,
             volume: this.form.volume,
-            active: 1,
-            favourite: 0
+            active: 1
         }
         this.reminderService.add(reminder);
         this.nav.setRoot(Reminders);

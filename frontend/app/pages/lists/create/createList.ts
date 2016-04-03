@@ -143,14 +143,15 @@ export class CreateList {
                                 let lng = marker.position.lng();
                                 console.log(lat, lng);
                                 locations.push({
-                                    name: "asd",
+                                    name: "Custom location",
                                     latitude: lat,
                                     longitude: lng,
                                 });
                             })
                             let list: List = {
                                 name: data.name,
-                                locations: locations
+                                locations: locations,
+                                favourite: 0
                             };
                             this.listService.add(list);
                             this.nav.setRoot(Lists);

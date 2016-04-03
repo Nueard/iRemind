@@ -8,8 +8,11 @@
 <ion-content>
     <ion-list *ngIf="lists.length > 0">
         <ion-item *ngFor="#list of lists">
-            {{ list.name }}
-            <ion-icon primary name="star" item-right></ion-icon>
+            {{ list.name }} {{list.favourite}}
+            <button clear item-right (click)="toggleFavourite(list)">
+                <ion-icon primary name="star-outline" *ngIf="list.favourite == 0"></ion-icon>
+                <ion-icon primary name="star" *ngIf="list.favourite == 1"></ion-icon>
+            </button>
         </ion-item>
     </ion-list>
     <ion-card *ngIf="lists.length == 0">

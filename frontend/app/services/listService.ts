@@ -5,7 +5,8 @@ import {Location} from './locationService';
 
 export interface List {
     name: string,
-    locations: Array<Location>
+    locations: Array<Location>,
+    favourite: number
 }
 
 @Injectable()
@@ -13,8 +14,8 @@ export class ListService {
     constructor(private dbService: DbService, private locationService: LocationService) { }
 
     add(list: List) {
-        var query = "INSERT INTO lists (name) VALUES (?)";
-        var params = [list.name];
+        var query = "INSERT INTO lists (name, favourite) VALUES (?,?)";
+        var params = [list.name, list.favourite];
         var res = this.dbService.exec(query, params).then((res) => {
             this.locationService.batchAdd(list.locations, res.res.id);
         }, this.err);
@@ -23,9 +24,23 @@ export class ListService {
     edit(id: number, locations: Array<Location>) {
         let query = "DELETE FROM locations WHERE list = (?)";
         let params = [id];
-        var res = this.dbService.exec(query, params).then((res) => {
+        this.dbService.exec(query, params).then((res) => {
             this.locationService.batchAdd(locations, id);
         }, this.err);
+    }
+
+    setFavourite(id: number, favourite: number) {
+        let query = "UPDATE lists SET favourite = (?) WHERE id = (?)";
+        let params = [favourite, id];
+        this.dbService.exec(query, params).then(
+            (res) => { }, 
+            this.err);
+    }
+    
+    getFavourites() {
+        let query = "SELECT * FROM lists WHERE favourite = (?)";
+        let params = [1]
+        return this.dbService.exec(query, params).then(this.getResults, this.err);
     }
 
     del(id: number) {

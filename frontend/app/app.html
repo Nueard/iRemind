@@ -25,20 +25,12 @@
         </ion-list>
         <ion-item-group>
             <ion-item-divider dark>Favourites</ion-item-divider>
-            <ion-item>
-                <ion-icon name="navigate" item-left></ion-icon>
-                V bara na gara
-            </ion-item>
-            <ion-item>
-                <ion-icon name="navigate" item-left></ion-icon>
-                E joro mesarq
+            <ion-item *ngFor="#list of lists" (click)="createReminder(list)">
+                <ion-icon item-left name="navigate"></ion-icon>
+                {{list.name}}
             </ion-item>
         </ion-item-group>
     </ion-content>
 </ion-menu>
 
 <ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>
-<!-- <ion-tabs primary>
-    <ion-tab tabTitle="Reminders" [root]="tab1"></ion-tab>
-    <ion-tab tabTitle="Locations" [root]="tab2"></ion-tab>
-</ion-tabs> -->

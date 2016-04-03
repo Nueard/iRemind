@@ -9,8 +9,8 @@ export class DbService {
         this.db = new Storage(SqlStorage, { name: 'iremind' });
         this.createQueries = [
             "CREATE TABLE IF NOT EXISTS locations (id integer primary key, list int, latitude real, longitude real, name text)",
-            "CREATE TABLE IF NOT EXISTS lists (id integer primary key, name text)",
-            "CREATE TABLE IF NOT EXISTS reminders (id integer primary key, list int, name text, note text, radius int, volume int, active int, favourite int)"
+            "CREATE TABLE IF NOT EXISTS lists (id integer primary key, name text, favourite int)",
+            "CREATE TABLE IF NOT EXISTS reminders (id integer primary key, list int, name text, note text, radius int, volume int, active int)"
         ];
         this.deleteQueries = [
             "DROP TABLE IF EXISTS locations",

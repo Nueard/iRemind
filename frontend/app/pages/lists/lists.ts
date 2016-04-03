@@ -13,8 +13,10 @@ export class Lists {
             this.lists = lists;
         });
     }
-
-    onPageDidEnter() {
+    
+    toggleFavourite(list) {
+        list.favourite = Math.abs(list.favourite - 1);
+        this.listService.setFavourite(list.id, list.favourite);
     }
 
     create() {

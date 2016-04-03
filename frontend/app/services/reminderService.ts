@@ -7,8 +7,7 @@ export interface Reminder {
     note: string,
     radius: number,
     volume: number,
-    active: number,
-    favourite: number
+    active: number
 }
 
 @Injectable()
@@ -17,8 +16,8 @@ export class ReminderService {
 
     add(reminder) {
         var query =
-            "INSERT INTO reminders (list, name, note, radius, volume, active, favourite) VALUES (?,?,?,?,?,?,?)";
-        var params = [reminder.list, reminder.name, reminder.note, reminder.radius, reminder.volume, reminder.active, reminder.favourite];
+            "INSERT INTO reminders (list, name, note, radius, volume, active) VALUES (?,?,?,?,?,?)";
+        var params = [reminder.list, reminder.name, reminder.note, reminder.radius, reminder.volume, reminder.active];
         this.dbService.exec(query, params).then(() => {}, this.err);;
     }
 

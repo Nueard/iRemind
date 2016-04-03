@@ -18,8 +18,8 @@
     </ion-item>
     <ion-item>
         <ion-label>List</ion-label>
-        <ion-select [(ngModel)]="form.list">
-            <ion-option *ngFor="#list of lists" [value]="list">{{list.name}}</ion-option>
+        <ion-select [(ngModel)]="selectedList">
+            <ion-option *ngFor="#list of lists" [checked]="list.name == form.list.name" [value]="list">{{list.name}}</ion-option>
         </ion-select>
     </ion-item>
     <div class="ionic" style="margin-top:20px">
