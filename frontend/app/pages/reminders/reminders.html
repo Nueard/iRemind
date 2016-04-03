@@ -7,18 +7,21 @@
 <ion-content>
     <ion-list>
         <ion-item *ngFor="#reminder of reminders">
-            {{ reminder.name }}
-            <button clear item-right (click)="expand(reminder)">
+            <!--<button clear item-left (click)="expand(reminder)">
                 <ion-icon name="arrow-up" *ngIf="expandedId == reminder.id"></ion-icon>
                 <ion-icon name="arrow-down" *ngIf="expandedId != reminder.id"></ion-icon>
-            </button>
-            <div *ngIf="expandedId == reminder.id">
+            </button>-->
+            <ion-label>
+                {{ reminder.name }}
+            </ion-label>
+            <ion-toggle checked="{{reminder.active}}" (click)="toggleActive(reminder)"></ion-toggle>
+            <!--<div *ngIf="expandedId == reminder.id">
                 <p>Note: {{ reminder.note }}</p>
                 <p>Volume: {{ reminder.volume }}</p>
                 <p>Radius: {{ reminder.radius }}</p>
                 <p>Active: {{ reminder.active }}</p>
                 <p>Favourite: {{ reminder.favourite }}</p>
-            </div>
+            </div>-->
         </ion-item>
     </ion-list>
 </ion-content>
