@@ -27,28 +27,6 @@ export class CreateReminder {
         });
     }
 
-    selectList() {
-        this.listService.getAll().then((lists) => {
-            let alert = Alert.create();
-            alert.setTitle('Choose list');
-            lists.forEach((list, index) => {
-                alert.addInput({
-                    type: 'radio',
-                    label: list.name,
-                    value: list,
-                    checked: index == 0
-                });
-            })
-            alert.addButton({
-                text: 'Ok',
-                handler: data => {
-                    this.form.list = data;
-                }
-            });
-            this.nav.present(alert);
-        });
-    }
-
     create() {
         let reminder: Reminder = {
             list: this.form.list.id,
