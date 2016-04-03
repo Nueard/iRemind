@@ -24,8 +24,7 @@ export class CreateList {
     }
 
     loadMap() {
-        let options = { timeout: 1000, enableHighAccuracy: true };
-        Geolocation.getCurrentPosition(options).then(
+        Geolocation.getCurrentPosition().then(
             (position) => {
                 let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 let mapOptions = {
@@ -39,6 +38,7 @@ export class CreateList {
                 this.addMarker(latLng, false);
             },
             (error) => {
+                console.error(error);
                 let alert = Alert.create({
                     title: 'Something went wrong',
                     subTitle: 'We couldn\'t get your location, maybe location services are off?',
