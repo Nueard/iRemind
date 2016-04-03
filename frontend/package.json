@@ -20,8 +20,8 @@
     "ionic-gulp-sass-build": "^1.0.0",
     "ionic-gulp-scripts-copy": "^1.0.0"
   },
-  "name": "frontend_new",
-  "description": "frontend_new: An Ionic project",
+  "name": "iRemind",
+  "description": "iRemind: Location based alarms",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
