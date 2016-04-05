@@ -41,16 +41,18 @@ export class MyApp {
             this.listService.getFavourites().then((lists) => {
                 this.lists = lists;
             })
-            this.nav = this.app.getComponent('nav');
         });
+            
     }
 
     goPage(page) {
+        let nav = this.app.getComponent('nav');
         this.menu.close();
-        this.nav.setRoot(page);
+        nav.setRoot(page);
     }
 
     createReminder(list) {
+        let nav = this.app.getComponent('nav');
         let form = {
             name: "",
             note: "",
@@ -59,6 +61,6 @@ export class MyApp {
             volume: 50
         }
         this.menu.close();
-        this.nav.push(CreateReminder, { form: form });
+        nav.push(CreateReminder, { form: form });
     }
 }

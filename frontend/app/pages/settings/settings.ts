@@ -9,12 +9,18 @@ import 'rxjs/add/operator/map';
     templateUrl: 'build/pages/settings/settings.html'
 })
 export class Settings {
+    locations = [];
+    
     constructor(
         private nav: NavController,
         private dbService: DbService,
         private geofenceService: GeofenceService,
         private locationService: LocationService,
-        private http: Http) { }
+        private http: Http) {
+            this.locationService.getActive().then((locations) => {
+                this.locations = locations;
+            });
+         }
 
     wipe() {
         this.dbService.wipe();

@@ -9,4 +9,11 @@
   <button block (click)="wipe()">wipe me like one of your french ladies</button>
   <button block (click)="sync()">sync the shit out of my db</button>
   <button block (click)="test()">test server</button>
+  
+  <ion-list>
+      <ion-item *ngFor="#loc of locations">
+          {{ loc }}
+      </ion-item>
+  </ion-list>
+  
 </ion-content>
