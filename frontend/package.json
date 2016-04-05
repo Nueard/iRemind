@@ -32,5 +32,7 @@
     "cordova-plugin-geolocation",
     "cordova-plugin-geofence"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "android"
+  ]
 }
