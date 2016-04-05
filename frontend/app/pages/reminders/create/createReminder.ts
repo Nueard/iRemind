@@ -2,6 +2,7 @@ import {Page, NavController, Alert, NavParams} from 'ionic-angular';
 import {ListService} from '../../../services/listService';
 import {ReminderService, Reminder} from '../../../services/reminderService';
 import {Reminders} from '../reminders';
+import {SelectList} from './selectList/selectList';
 
 @Page({
     templateUrl: 'build/pages/reminders/create/createReminder.html'
@@ -24,9 +25,13 @@ export class CreateReminder {
         if (navParams.get("form")) {
             this.form = navParams.get("form");
         }
-        this.listService.getAll().then((lists) => {
-            this.lists = lists;
-        });
+        // this.listService.getAll().then((lists) => {
+        //     this.lists = lists;
+        // });
+    }
+    
+    selectList() {
+        this.nav.push(SelectList, {form: this.form});
     }
 
     create() {
