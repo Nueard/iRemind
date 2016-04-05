@@ -16,9 +16,7 @@ export class LocationService {
     add(location) {
         var query =
             "INSERT INTO locations (list, latitude, longitude, name) VALUES (?,?,?,?)";
-        var params = [location.list, location.latitude, location.longitude,
-            location.name
-        ];
+        var params = [location.list, location.latitude, location.longitude, location.name];
         return this.dbService.exec(query, params).then(
             (res) => { },
             this.err

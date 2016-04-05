@@ -25,9 +25,9 @@ export class CreateReminder {
         if (navParams.get("form")) {
             this.form = navParams.get("form");
         }
-        // this.listService.getAll().then((lists) => {
-        //     this.lists = lists;
-        // });
+        this.listService.getAll().then((lists) => {
+            this.lists = lists;
+        });
     }
     
     selectList() {
@@ -49,7 +49,8 @@ export class CreateReminder {
             volume: this.form.volume,
             active: 1
         }
-        this.reminderService.add(reminder);
-        this.nav.setRoot(Reminders);
+        this.reminderService.add(reminder).then(() => {
+            this.nav.setRoot(Reminders);
+        });
     }
 }

@@ -34,12 +34,13 @@ export class DbService {
 
     wipe() {
         this.deleteQueries.forEach((query) => {
-            this.db.query(query).then((res) => {
-                console.log(res);
+            let promises = [];
+            promises.push(this.db.query(query));
+            Promise.all(promises).then(() => {
+                this.createQueries.forEach((query) => {
+                    this.db.query(query);
+                });
             });
-        })
-        this.createQueries.forEach((query) => {
-            this.db.query(query);
-        })
+        });
     }
 }

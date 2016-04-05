@@ -116,8 +116,6 @@ export class CreateList {
         }
     }
 
-
-
     save() {
         let alert = Alert.create({
             title: 'Name it bruh',
@@ -151,8 +149,9 @@ export class CreateList {
                                 locations: locations,
                                 favourite: 0
                             };
-                            this.listService.add(list);
-                            this.nav.setRoot(Lists);
+                            this.listService.add(list).then(() => {
+                                this.nav.setRoot(Lists);
+                            });
                         }
                     }
                 }
@@ -160,5 +159,4 @@ export class CreateList {
         });
         this.nav.present(alert);
     }
-
 }

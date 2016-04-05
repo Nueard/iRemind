@@ -21,7 +21,7 @@ export class ReminderService {
         var query =
             "INSERT INTO reminders (list, name, note, radius, volume, active) VALUES (?,?,?,?,?,?)";
         var params = [reminder.list, reminder.name, reminder.note, reminder.radius, reminder.volume, reminder.active];
-        this.dbService.exec(query, params).then((res) => {
+        return this.dbService.exec(query, params).then((res) => {
             this.geofenceService.sync();
         }, this.err);
     }

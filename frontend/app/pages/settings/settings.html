@@ -12,7 +12,11 @@
   
   <ion-list>
       <ion-item *ngFor="#loc of locations">
-          {{ loc }}
+          {{ loc.id }}
+          {{ loc.list }}
+          {{ loc.name }}
+          {{ loc.latitude }}
+          {{ loc.longitude }}
       </ion-item>
   </ion-list>
   

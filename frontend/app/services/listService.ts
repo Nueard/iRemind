@@ -20,8 +20,8 @@ export class ListService {
     add(list: List) {
         var query = "INSERT INTO lists (name, favourite) VALUES (?,?)";
         var params = [list.name, list.favourite];
-        this.dbService.exec(query, params).then((res) => {
-            this.locationService.batchAdd(list.locations, res.res.id);
+        return this.dbService.exec(query, params).then((res) => {
+            this.locationService.batchAdd(list.locations, res.res.insertId);
         }, this.err);
     }
 
