@@ -28,7 +28,8 @@ export class LocationService {
         let promises = [];
         locations.forEach((location) => {
             location.list = listId;
-            promises.push(this.add(location));
+            console.log(location);
+            promises.push(this.add(location).then(() => {}, this.err));
         });
         return Promise.all(promises);
     }

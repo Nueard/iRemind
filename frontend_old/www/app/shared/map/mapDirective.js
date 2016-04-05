@@ -124,7 +124,7 @@ app.directive('map', ['$cordovaGeolocation', 'locationService', 'listService',
 
                 if(scope.locations) {
                     scope.locations.forEach(function(location) {
-                        var position = {lat: location.latitude, lng: location.longitude};
+                        let position = new google.maps.LatLng(location.latitude, location.longitude);
                         addLocation(position, location.name);
                     });
                 }

@@ -1,0 +1,12 @@
+<ion-navbar *navbar>
+    <ion-searchbar [(ngModel)]="search" [hideCancelButton]="true" (input)="onInput($event)" [debounce]="1000"></ion-searchbar>
+    <ion-buttons end>
+        <button royal (click)="save()">
+            <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+<ion-content>
+    <div id="map"></div>
+</ion-content>

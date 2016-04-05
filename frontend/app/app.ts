@@ -1,5 +1,5 @@
 import {App, Platform, IonicApp, MenuController} from 'ionic-angular';
-import {StatusBar, LocalNotifications} from 'ionic-native';
+import {StatusBar} from 'ionic-native';
 import {Reminders} from './pages/reminders/reminders';
 import {CreateReminder} from './pages/reminders/create/createReminder';
 import {Settings} from './pages/settings/settings';
@@ -44,10 +44,6 @@ export class MyApp {
             this.listService.getFavourites().then((lists) => {
                 this.lists = lists;
             })
-            LocalNotifications.schedule({
-                id: 1,
-                text: "Single Notification",
-            });
         });
             
     }

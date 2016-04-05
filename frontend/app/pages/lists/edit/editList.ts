@@ -1,58 +1,46 @@
-import {Page, NavController, Platform, Alert, Storage, SqlStorage} from 'ionic-angular';
+import {Page, NavController, Platform, Alert, Storage, SqlStorage, NavParams} from 'ionic-angular';
 import {ListService, List} from '../../../services/listService';
 import {Lists} from '../lists';
-import {Geolocation} from 'ionic-native';
 
 declare var google: any;
 
 @Page({
-    templateUrl: 'build/pages/lists/create/createList.html',
-    providers: [Geolocation]
+    templateUrl: 'build/pages/lists/edit/editList.html'
 })
-export class CreateList {
+export class EditList {
     map: any;
     markers: any = [];
     search: any = "";
+    list: any;
+    
 
     constructor(platform: Platform,
         private nav: NavController,
         private listService: ListService,
-        private geolocation: Geolocation) {
-        platform.ready().then(() => {
-            this.loadMap();
-        });
-    }
-
-    loadMap() {
-        Geolocation.getCurrentPosition().then(
-            (position) => {
-                let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                let mapOptions = {
-                    center: latLng,
-                    zoom: 15,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
-                this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                this.map.addListener('click', this.addClickLocation);
-                this.markers = [];
-                this.addMarker(latLng, false);
-            },
-            (error) => {
-                console.error(error);
-                let alert = Alert.create({
-                    title: 'Something went wrong',
-                    subTitle: 'We couldn\'t get your location, maybe location services are off?',
-                    buttons: [
-                        {
-                            text: 'OK',
-                            handler: () => {
-                                this.nav.setRoot(Lists);
-                            }
-                        }
-                    ]
+        private navParams: NavParams) {
+            this.list = this.navParams.get("list");
+            if(!this.list) {
+                console.error("List invalid");
+                this.nav.pop();
+            } else {
+                platform.ready().then(() => {
+                    let position = new google.maps.LatLng(0, 0);
+                    let mapOptions = {
+                        center: position,
+                        zoom: 15,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    }
+                    this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                    this.map.addListener('click', this.addClickLocation);
+                    let bounds = new google.maps.LatLngBounds();
+                    this.list.locations.forEach((location) => {
+                        let position = new google.maps.LatLng(location.latitude, location.longitude);
+                        bounds.extend(position);
+                        this.addMarker(position, true);
+                    });
+                    this.map.fitBounds(bounds);
                 });
-                this.nav.present(alert);
-            });
+            }
     }
 
     addMarker = (position, removable: boolean) => {
@@ -159,7 +147,7 @@ export class CreateList {
                                 locations: locations,
                                 favourite: 0
                             };
-                            this.listService.add(list).then(() => {
+                            this.listService.edit(this.list.id, list).then(() => {
                                 this.nav.setRoot(Lists);
                             });
                         }

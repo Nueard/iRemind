@@ -25,13 +25,18 @@ export class ListService {
         }, this.err);
     }
 
-    edit(id: number, locations: Array<Location>) {
-        let query = "DELETE FROM locations WHERE list = (?)";
-        let params = [id];
-        this.dbService.exec(query, params).then((res) => {
-            this.locationService.batchAdd(locations, id).then(() => {
-                this.geofenceService.sync();
-            });
+    edit(id: number, list: any) {
+        console.log(list, id);
+        let query = "UPDATE lists SET name = (?) WHERE id = (?)";
+        let params = [list.name, id];
+        return this.dbService.exec(query, params).then(() => {
+            query = "DELETE FROM locations WHERE list = (?)";
+            params = [id];
+            return this.dbService.exec(query, params).then((res) => {
+                return this.locationService.batchAdd(list.locations, id).then(() => {
+                    this.geofenceService.sync();
+                });
+            }, this.err);
         }, this.err);
     }
 
