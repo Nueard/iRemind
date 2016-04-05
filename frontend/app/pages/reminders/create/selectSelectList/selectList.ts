@@ -1,53 +1,55 @@
-import {Page, NavController, NavParams} from 'ionic-angular';
+import {Page, NavController, NavParams, Alert} from 'ionic-angular';
 import {CreateReminder} from '../createReminder';
+import {CreateList} from '../../../lists/create/createList';
 import {Reminders} from '../../reminders';
 import {ListService} from '../../../../services/listService';
 
 @Page({
-    templateUrl: 'build/pages/reminders/create/selectList/selectList.html'
+    templateUrl: 'build/pages/reminders/create/selectSelectList/selectList.html'
 })
 export class SelectList {
-    items = [];
-    lists = [];
-    searchbar: any = "";
-    form : any;
-    inpt: any;
+    form: any;
 
     constructor(private nav: NavController, private listService: ListService, navParams: NavParams) {
-        this.listService.getAll().then((lists) => {
-            this.lists = lists;
-            this.items = lists;
-        });
         this.form = navParams.get("form");
-    }
 
-    getItems(searchbar) {
-        var q = searchbar.value;
+        this.listService.getAll().then((lists) => {
+            let alert = Alert.create();
+            alert.setTitle('Lightsaber color');
 
-        if (q.trim() == '') {
-            this.items = this.lists;
-            return;
-        }
+            lists.forEach((list, index) => {
+                alert.addInput({
+                    type: 'radio',
+                    label: list.name,
+                    value: list,
+                    checked: index == 0
+                });
+            });
+            alert.addInput({
+                type: 'radio',
+                label: 'Create new',
+                value: 'create'
+            });
 
-        this.items = this.lists.filter((v) => {
-            if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-                return true;
-            }
-            return false;
-        })
-    }
+            alert.addButton({
+                text: 'OK',
+                handler: data => {
+                    if (data == 'create') {
+                        this.nav.push(CreateList, { createReminder: true });
+                    } else {
+                        this.form.list = data;
+                        this.nav.setPages([
+                            {
+                                page: Reminders
+                            }, {
+                                page: CreateReminder,
+                                params: { form: this.form }
+                            }]);
+                    }
+                }
+            });
 
-    selectLocation(list) {
-        this.form.list = list;
-        this.nav.setPages([{
-            page: Reminders
-        }, {
-            page: CreateReminder,
-            params: {form: this.form}
-        }])
-    }
-
-    onCancel(searchbar) {
-        this.nav.pop();
+            this.nav.present(alert);
+        });
     }
 }

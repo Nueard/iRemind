@@ -2,7 +2,7 @@ import {Page, NavController, Alert, NavParams} from 'ionic-angular';
 import {ListService} from '../../../services/listService';
 import {ReminderService, Reminder} from '../../../services/reminderService';
 import {Reminders} from '../reminders';
-import {SelectList} from './searchSelectList/selectList';
+import {SelectList} from './selectSelectList/selectList';
 
 @Page({
     templateUrl: 'build/pages/reminders/create/createReminder.html'
