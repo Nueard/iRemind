@@ -1,8 +1,9 @@
-import {Page, NavController, Alert, NavParams} from 'ionic-angular';
+import {Page, NavController, Alert, NavParams, Platform} from 'ionic-angular';
 import {ListService} from '../../../services/listService';
 import {ReminderService, Reminder} from '../../../services/reminderService';
 import {Reminders} from '../reminders';
-import {SelectList} from './selectSelectList/selectList';
+import {SearchSelectList} from './selectList/searchSelectList';
+import {SelectSelectList} from './selectList/selectSelectList';
 
 @Page({
     templateUrl: 'build/pages/reminders/create/createReminder.html'
@@ -18,8 +19,13 @@ export class CreateReminder {
         },
         volume: 50
     };
-    
-    constructor(private nav: NavController, private listService: ListService, private reminderService: ReminderService, navParams: NavParams) {
+
+    constructor(
+        private nav: NavController,
+        private listService: ListService,
+        private reminderService: ReminderService,
+        private platform: Platform,
+        navParams: NavParams) {
         if (navParams.get("form")) {
             this.form = navParams.get("form");
             console.log(this.form);
@@ -28,9 +34,15 @@ export class CreateReminder {
             this.lists = lists;
         });
     }
-    
+
     selectList() {
-        this.nav.push(SelectList, {form: this.form});
+        if (this.platform.is("android")) {
+            this.nav.push(SelectSelectList, { form: this.form });
+        } else if (this.platform.is("ios")) {
+            this.nav.push(SearchSelectList, { form: this.form });
+        } else {
+            this.nav.push(SelectSelectList, { form: this.form });
+        }
     }
 
     create() {

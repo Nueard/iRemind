@@ -5,9 +5,9 @@ import {Reminders} from '../../reminders';
 import {ListService} from '../../../../services/listService';
 
 @Page({
-    templateUrl: 'build/pages/reminders/create/selectSelectList/selectList.html'
+    template: ''
 })
-export class SelectList {
+export class SelectSelectList {
     form: any;
 
     constructor(private nav: NavController, private listService: ListService, navParams: NavParams) {

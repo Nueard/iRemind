@@ -5,14 +5,15 @@ import {Reminders} from '../../reminders';
 import {ListService} from '../../../../services/listService';
 
 @Page({
-    templateUrl: 'build/pages/reminders/create/searchSelectList/selectList.html'
+    templateUrl: 'build/pages/reminders/create/selectList/searchSelectList.html'
 })
-export class SelectList {
+export class SearchSelectList {
     items = [];
     lists = [];
     searchbar: any = "";
     form: any;
     inpt: any;
+    
 
     constructor(private nav: NavController, private listService: ListService, navParams: NavParams) {
         this.listService.getAll().then((lists) => {
