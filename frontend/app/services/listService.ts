@@ -62,8 +62,6 @@ export class ListService {
         }, this.err);
     }
 
- 
-
     getAll() {
         let query = "SELECT * FROM lists";
         return this.dbService.exec(query, []).then(this.getResults, this.err);

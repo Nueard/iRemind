@@ -121,7 +121,8 @@ export class EditList {
             inputs: [
                 {
                     name: 'name',
-                    placeholder: 'Name'
+                    placeholder: 'Name',
+                    value: this.list.name
                 }
             ],
             buttons: [
