@@ -15,7 +15,7 @@ export class Reminders {
                 reminders[index].active = reminder.active == 1;
             });
             this.reminders = reminders;
-        })
+        });
     }
 
     create() {

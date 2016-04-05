@@ -11,6 +11,9 @@ import {DbService} from './services/dbService';
 import {ReminderService} from './services/reminderService';
 import {GeofenceService} from './services/geofenceService';
 
+import {enableProdMode} from 'angular2/core';
+enableProdMode();
+
 declare var window: any;
 
 @App({

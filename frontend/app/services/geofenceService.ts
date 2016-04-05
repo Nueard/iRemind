@@ -22,13 +22,12 @@ export class GeofenceService {
 
     init = () => {
         window.geofence.initialize();
-        this.sync();
-        window.geofence.onTransitionReceived = this.triggerCallback;
         this.initialised = true;
+        window.geofence.onTransitionReceived = this.triggerCallback;
+        this.sync();
     }
 
     private triggerCallback = (geofences) => {
-        console.log("ENTERED GEOFENCE");
         geofences.forEach((geo) => {
             console.log('Geofence transition detected', geo);
             LocalNotifications.schedule({
@@ -44,8 +43,6 @@ export class GeofenceService {
         if (this.initialised) {
             this.locationService.getActive().then((dbLocations) => {
                 this.get().then((gfLocations) => {
-                    console.log(dbLocations);
-                    console.log(gfLocations);
                     // Check if dbLocations are not in geofence
                     dbLocations.forEach((dbLocation) => {
                         let index = gfLocations.findIndex((location: any) => {
