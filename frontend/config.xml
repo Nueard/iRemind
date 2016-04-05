@@ -29,4 +29,5 @@
     <plugin name="ionic-plugin-keyboard" spec="~2.0.1" />
     <plugin name="cordova-plugin-geolocation" spec="~2.1.0" />
     <plugin name="cordova-plugin-geofence" spec="~0.5.0" />
+    <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.4" />
 </widget>

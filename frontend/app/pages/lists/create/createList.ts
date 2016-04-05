@@ -33,7 +33,7 @@ export class CreateList {
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
                 this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                this.map.addListener('click', this.addClickLocation);
+                this.map.addListener('click', this.newAddClickLocation);
                 this.markers = [];
                 this.addMarker(latLng, false);
             },
@@ -62,8 +62,19 @@ export class CreateList {
             position: position
         });
         if (removable) {
+            marker.radius = 50;
+            let circle = new google.maps.Circle({
+                map: this.map,
+                center: position,
+                radius: 50,
+                editable: true
+            });
+            circle.addListener('radius_changed', () => {
+                marker.radius = circle.getRadius();
+            });
             marker.addListener('click', () => {
                 marker.setMap(null);
+                circle.setMap(null);
                 this.markers = this.markers.filter((marker) => {
                     return marker.map != null;
                 });
@@ -76,6 +87,12 @@ export class CreateList {
         this.addMarker(event.latLng, true);
     }
 
+    newAddClickLocation = (event) => {
+
+        this.addMarker(event.latLng, true);
+        return;
+    }
+    
     clearAllMarkers = () => {
         this.markers.forEach((marker) => {
             marker.setMap(null);
