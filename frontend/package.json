@@ -21,7 +21,8 @@
     "ionic-gulp-scripts-copy": "^1.0.0"
   },
   "name": "iRemind",
-  "description": "iRemind: Location based alarms",
+  "version": "0.1",
+  "description": "iRemind: Location based reminders",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
