@@ -2,7 +2,7 @@
     <ion-searchbar [(ngModel)]="searchbar" (input)="getItems($event)" (cancel)="onCancel($event)"></ion-searchbar>
 </ion-navbar>
 <ion-content>
-    <ion-list>
+    <ion-list no-lines>
         <ion-item *ngFor="#list of items" (click)="selectLocation(list)">
             {{ list.name }}
         </ion-item>

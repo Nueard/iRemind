@@ -5,7 +5,7 @@
     <ion-title>Reminders</ion-title>
 </ion-navbar>
 <ion-content>
-    <ion-list *ngIf="reminders.length > 0">
+    <ion-list *ngIf="reminders.length > 0" no-lines>
         <ion-item *ngFor="#reminder of reminders">
             <ion-label>
                 {{ reminder.name }}
