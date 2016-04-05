@@ -12,26 +12,19 @@
         <ion-label>Name</ion-label>
         <ion-input type="text" [(ngModel)]="form.name"></ion-input>
     </ion-item>
+    
     <ion-item>
         <ion-label>Note</ion-label>
         <ion-input type="text" [(ngModel)]="form.note"></ion-input>
     </ion-item>
+    
     <ion-item>
         <ion-label>List</ion-label>
         <ion-select [(ngModel)]="selectedList">
             <ion-option *ngFor="#list of lists" [checked]="list.name == form.list.name" [value]="list">{{list.name}}</ion-option>
         </ion-select>
     </ion-item>
-    <div class="ionic" style="margin-top:20px">
-        <div class="range-label">
-            Trigger radius
-        </div>
-        <div class="range">
-            <ion-icon name="locate" class="icon"></ion-icon>
-            <input type="range" [(ngModel)]="form.radius" min="0" max="100">
-            <span item-right style="min-width:40px;text-align:right;">{{form.radius}} m</span>
-        </div>
-    </div>
+    
     <div class="ionic">
         <div class="range-label">
             Notification

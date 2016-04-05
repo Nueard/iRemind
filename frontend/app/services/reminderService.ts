@@ -6,7 +6,6 @@ export interface Reminder {
     list: number,
     name: string,
     note: string,
-    radius: number,
     volume: number,
     active: number
 }
@@ -19,8 +18,8 @@ export class ReminderService {
 
     add(reminder) {
         var query =
-            "INSERT INTO reminders (list, name, note, radius, volume, active) VALUES (?,?,?,?,?,?)";
-        var params = [reminder.list, reminder.name, reminder.note, reminder.radius, reminder.volume, reminder.active];
+            "INSERT INTO reminders (list, name, note, volume, active) VALUES (?,?,?,?,?)";
+        var params = [reminder.list, reminder.name, reminder.note, reminder.volume, reminder.active];
         return this.dbService.exec(query, params).then((res) => {
             this.geofenceService.sync();
         }, this.err);

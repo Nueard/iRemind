@@ -5,6 +5,7 @@ export interface Location {
     list: number,
     latitude: number,
     longitude: number,
+    radius: number,
     name: string
 }
 
@@ -15,8 +16,8 @@ export class LocationService {
 
     add(location) {
         var query =
-            "INSERT INTO locations (list, latitude, longitude, name) VALUES (?,?,?,?)";
-        var params = [location.list, location.latitude, location.longitude, location.name];
+            "INSERT INTO locations (list, latitude, longitude, name, radius) VALUES (?,?,?,?,?)";
+        var params = [location.list, location.latitude, location.longitude, location.name, location.radius];
         return this.dbService.exec(query, params).then(
             (res) => { },
             this.err

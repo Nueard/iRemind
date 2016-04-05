@@ -153,12 +153,11 @@ export class CreateList {
                         if (data.name.trim().length != 0) {
                             let locations = [];
                             this.markers.forEach((marker) => {
-                                let lat = marker.position.lat();
-                                let lng = marker.position.lng();
                                 locations.push({
                                     name: "Custom location",
-                                    latitude: lat,
-                                    longitude: lng,
+                                    latitude: marker.position.lat(),
+                                    longitude: marker.position.lng(),
+                                    radius: Math.round(marker.radius)
                                 });
                             })
                             let list: List = {

@@ -17,7 +17,6 @@ export class CreateReminder {
         list: {
             id: -1
         },
-        radius: 50,
         volume: 50
     };
     
@@ -45,7 +44,6 @@ export class CreateReminder {
             list: id,
             note: this.form.note,
             name: this.form.name,
-            radius: this.form.radius,
             volume: this.form.volume,
             active: 1
         }
