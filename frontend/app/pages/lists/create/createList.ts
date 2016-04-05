@@ -1,6 +1,8 @@
-import {Page, NavController, Platform, Alert, Storage, SqlStorage} from 'ionic-angular';
+import {Page, NavController, Platform, Alert, Storage, SqlStorage, NavParams} from 'ionic-angular';
 import {ListService, List} from '../../../services/listService';
 import {Lists} from '../lists';
+import {Reminders} from '../../reminders/reminders';
+import {CreateReminder} from '../../reminders/create/createReminder';
 import {Geolocation} from 'ionic-native';
 
 declare var google: any;
@@ -17,7 +19,8 @@ export class CreateList {
     constructor(platform: Platform,
         private nav: NavController,
         private listService: ListService,
-        private geolocation: Geolocation) {
+        private geolocation: Geolocation,
+        private navParams: NavParams) {
         platform.ready().then(() => {
             this.loadMap();
         });
@@ -86,7 +89,7 @@ export class CreateList {
     addClickLocation = (event) => {
         this.addMarker(event.latLng, true);
     }
-    
+
     clearAllMarkers = () => {
         this.markers.forEach((marker) => {
             marker.setMap(null);
@@ -159,8 +162,27 @@ export class CreateList {
                                 locations: locations,
                                 favourite: 0
                             };
-                            this.listService.add(list).then(() => {
-                                this.nav.setRoot(Lists);
+                            this.listService.add(list).then((res) => {
+                                if (this.navParams.get("createReminder")) {
+                                    this.listService.get(res.res.insertId).then((l) => {
+                                        this.nav.setPages([
+                                            {
+                                                page: Reminders
+                                            }, {
+                                                page: CreateReminder,
+                                                params: {
+                                                    form: {
+                                                        name: "",
+                                                        note: "",
+                                                        volume: 50,
+                                                        list: l[0]
+                                                    }
+                                                }
+                                            }]);
+                                    });
+                                } else {
+                                    this.nav.setRoot(Lists);
+                                }
                             });
                         }
                     }

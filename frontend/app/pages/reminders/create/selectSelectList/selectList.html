@@ -2,9 +2,13 @@
     <ion-searchbar [(ngModel)]="searchbar" (input)="getItems($event)" (cancel)="onCancel($event)"></ion-searchbar>
 </ion-navbar>
 <ion-content>
-    <ion-list no-lines>
+    <ion-list>
         <ion-item *ngFor="#list of items" (click)="selectLocation(list)">
             {{ list.name }}
+        </ion-item>
+        <ion-item>
+            Create
+            <ion-icon item-left primary name="add"></ion-icon>
         </ion-item>
     </ion-list>
 </ion-content>

@@ -13,15 +13,16 @@ export interface List {
 @Injectable()
 export class ListService {
     constructor(
-        private dbService       : DbService,
-        private locationService : LocationService,
-        private geofenceService : GeofenceService) { }
+        private dbService: DbService,
+        private locationService: LocationService,
+        private geofenceService: GeofenceService) { }
 
     add(list: List) {
         var query = "INSERT INTO lists (name, favourite) VALUES (?,?)";
         var params = [list.name, list.favourite];
         return this.dbService.exec(query, params).then((res) => {
             this.locationService.batchAdd(list.locations, res.res.insertId);
+            return res;
         }, this.err);
     }
 
@@ -66,6 +67,13 @@ export class ListService {
         let query = "SELECT * FROM lists";
         return this.dbService.exec(query, []).then(this.getResults, this.err);
     }
+
+    get(id: number) {
+        let query = "SELECT * FROM lists WHERE id = (?)";
+        let params = [id];
+        return this.dbService.exec(query, params).then(this.getResults, this.err);
+    }
+
 
     getResults = (response) => {
         var data = [];

@@ -8,28 +8,31 @@
 </ion-navbar>
 
 <ion-content>
-    <ion-item>
-        <ion-label>Name</ion-label>
-        <ion-input type="text" [(ngModel)]="form.name"></ion-input>
-    </ion-item>
-    
-    <ion-item>
-        <ion-label>Note</ion-label>
-        <ion-input type="text" [(ngModel)]="form.note"></ion-input>
-    </ion-item>
-    
-    <ion-item>
-        <ion-label>List</ion-label>
-        <ion-select [(ngModel)]="selectedList">
-            <ion-option *ngFor="#list of lists" [checked]="list.name == form.list.name" [value]="list">{{list.name}}</ion-option>
-        </ion-select>
-    </ion-item>
-    
-    <div class="ionic">
-        <div class="range">
-            <ion-icon name="volume-up" class="icon"></ion-icon>
-            <input type="range" [(ngModel)]="form.volume" min="0" max="100">
-            <span item-right style="min-width:40px;text-align:right;">{{form.volume}} %</span>
+    <ion-list>
+        <ion-item>
+            <ion-label>Name</ion-label>
+            <ion-input type="text" [(ngModel)]="form.name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Note</ion-label>
+            <ion-input type="text" [(ngModel)]="form.note"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <h2 *ngIf="form.list.name">{{ form.list.name }}</h2>
+            <h2 *ngIf="!form.list.name">Select list</h2>
+            <button clear item-right (click)="selectList()">
+                <ion-icon name="map"></ion-icon>
+            </button>
+        </ion-item>
+
+        <div class="ionic">
+            <div class="range">
+                <ion-icon name="volume-up" class="icon"></ion-icon>
+                <input type="range" [(ngModel)]="form.volume" min="0" max="100">
+                <span item-right style="min-width:40px;text-align:right;">{{form.volume}} %</span>
+            </div>
         </div>
-    </div>
+    </ion-list>
 </ion-content>
