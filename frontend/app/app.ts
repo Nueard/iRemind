@@ -34,8 +34,7 @@ export class MyApp {
         private geofenceService: GeofenceService,
         private listService: ListService,
         private reminderService: ReminderService,
-        platform: Platform)
-    {
+        platform: Platform) {
         platform.ready().then(() => {
             StatusBar.styleDefault();
             if (window.geofence != undefined) {
@@ -45,7 +44,7 @@ export class MyApp {
                 this.lists = lists;
             })
         });
-            
+
     }
 
     goPage(page) {

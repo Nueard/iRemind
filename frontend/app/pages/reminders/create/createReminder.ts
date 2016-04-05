@@ -1,6 +1,7 @@
 import {Page, NavController, Alert, NavParams, Platform} from 'ionic-angular';
 import {ListService} from '../../../services/listService';
 import {ReminderService, Reminder} from '../../../services/reminderService';
+import {CreateList} from '../../lists/create/createList';
 import {Reminders} from '../reminders';
 import {SearchSelectList} from './selectList/searchSelectList';
 import {SelectSelectList} from './selectList/selectSelectList';
@@ -25,10 +26,9 @@ export class CreateReminder {
         private listService: ListService,
         private reminderService: ReminderService,
         private platform: Platform,
-        navParams: NavParams) {
-        if (navParams.get("form")) {
-            this.form = navParams.get("form");
-            console.log(this.form);
+        private navParams: NavParams) {
+        if (this.navParams.get("form")) {
+            this.form = this.navParams.get("form");
         }
         this.listService.getAll().then((lists) => {
             this.lists = lists;
@@ -37,12 +37,47 @@ export class CreateReminder {
 
     selectList() {
         if (this.platform.is("android")) {
-            this.nav.push(SelectSelectList, { form: this.form });
+            this.showMaterialSelect();
         } else if (this.platform.is("ios")) {
             this.nav.push(SearchSelectList, { form: this.form });
         } else {
             this.nav.push(SelectSelectList, { form: this.form });
         }
+    }
+
+    showMaterialSelect() {
+        this.listService.getAll().then((lists) => {
+            let alert = Alert.create();
+            alert.setTitle('Lightsaber color');
+
+            lists.forEach((list, index) => {
+                alert.addInput({
+                    type: 'radio',
+                    label: list.name,
+                    value: list,
+                    checked: index == 0
+                });
+            });
+            alert.addInput({
+                type: 'radio',
+                label: 'Create new',
+                value: 'create'
+            });
+
+            alert.addButton({
+                text: 'OK',
+                handler: data => {
+                    console.log(data);
+                    if (data == 'create') {
+                        this.nav.push(CreateList, { createReminder: true });
+                    } else {
+                        this.form.list = data;
+                    }
+                }
+            });
+
+            this.nav.present(alert);
+        });
     }
 
     create() {

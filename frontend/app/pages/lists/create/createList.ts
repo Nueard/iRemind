@@ -16,12 +16,13 @@ export class CreateList {
     markers: any = [];
     search: any = "";
 
-    constructor(platform: Platform,
+    constructor(
+        private platform: Platform,
         private nav: NavController,
         private listService: ListService,
         private geolocation: Geolocation,
         private navParams: NavParams) {
-        platform.ready().then(() => {
+        this.platform.ready().then(() => {
             this.loadMap();
         });
     }
@@ -165,20 +166,15 @@ export class CreateList {
                             this.listService.add(list).then((res) => {
                                 if (this.navParams.get("createReminder")) {
                                     this.listService.get(res.res.insertId).then((l) => {
-                                        this.nav.setPages([
-                                            {
-                                                page: Reminders
-                                            }, {
-                                                page: CreateReminder,
-                                                params: {
-                                                    form: {
-                                                        name: "",
-                                                        note: "",
-                                                        volume: 50,
-                                                        list: l[0]
-                                                    }
-                                                }
-                                            }]);
+                                        this.nav.setRoot(Reminders);
+                                        this.nav.push(CreateReminder, {
+                                            form: {
+                                                name: "",
+                                                note: "",
+                                                volume: 50,
+                                                list: l[0]
+                                            }
+                                        });
                                     });
                                 } else {
                                     this.nav.setRoot(Lists);
