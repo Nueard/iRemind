@@ -11,7 +11,7 @@
 </ion-navbar>
 
 <ion-content>
-    <ion-list *ngIf="lists.length > 0" no-lines>
+    <ion-list *ngIf="lists.length > 0">
         <template ngFor #list [ngForOf]="lists">
             <ion-item *ngIf="list.favourite == 1">
                 <ion-label (click)="edit(list)">

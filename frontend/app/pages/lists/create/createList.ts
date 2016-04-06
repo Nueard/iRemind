@@ -1,6 +1,7 @@
-import {Page, NavController, Platform, Alert, Storage, SqlStorage, NavParams} from 'ionic-angular';
+import {Page, NavController, Platform, Alert, NavParams} from 'ionic-angular';
 import {ListService, List} from '../../../services/listService';
 import {Lists} from '../lists';
+import {ModalConfirm} from './modalConfirm/modalConfirm';
 import {Reminders} from '../../reminders/reminders';
 import {CreateReminder} from '../../reminders/create/createReminder';
 import {Geolocation} from 'ionic-native';
@@ -134,8 +135,25 @@ export class CreateList {
     }
 
     save() {
+        if (this.platform.is("ios")) {
+            let locations = [];
+            this.markers.forEach((marker) => {
+                locations.push({
+                    name: "Custom location",
+                    latitude: marker.position.lat(),
+                    longitude: marker.position.lng(),
+                    radius: Math.round(marker.radius)
+                });
+            })
+            this.nav.push(ModalConfirm, { locations: locations, createReminder: this.navParams.get("createReminder") });
+        } else {
+            this.alertSave();
+        }
+    }
+
+    alertSave() {
         let alert = Alert.create({
-            title: 'Name it bruh',
+            title: 'Name',
             inputs: [
                 {
                     name: 'name',

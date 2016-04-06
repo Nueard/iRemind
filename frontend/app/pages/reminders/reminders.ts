@@ -1,5 +1,6 @@
 import {Page, NavController} from 'ionic-angular';
 import {CreateReminder} from './create/createReminder';
+import {EditReminder} from './edit/editReminder';
 import {ReminderService} from '../../services/reminderService';
 
 @Page({
@@ -28,6 +29,10 @@ export class Reminders {
 
     create() {
         this.nav.push(CreateReminder);
+    }
+    
+    edit(reminder) {
+        this.nav.push(EditReminder, {form: reminder});
     }
 
     expand(reminder) {

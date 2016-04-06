@@ -3,23 +3,16 @@ import {ListService} from '../../../services/listService';
 import {ReminderService, Reminder} from '../../../services/reminderService';
 import {CreateList} from '../../lists/create/createList';
 import {Reminders} from '../reminders';
-import {SearchSelectList} from './selectList/searchSelectList';
+import {SearchSelectList} from '../create/selectList/searchSelectList';
 
 @Page({
     templateUrl: 'build/pages/reminders/create/createReminder.html'
 })
-export class CreateReminder {
+export class EditReminder {
     items = [];
     lists = [];
-    form = {
-        name: "",
-        note: "",
-        list: {
-            id: -1
-        },
-        volume: 50
-    };
-    title = "Create";
+    form: any;
+    title = "Edit";
 
     constructor(
         private nav: NavController,
@@ -27,17 +20,17 @@ export class CreateReminder {
         private reminderService: ReminderService,
         private platform: Platform,
         private navParams: NavParams) {
-        if (this.navParams.get("form")) {
-            this.form = this.navParams.get("form");
+        this.form = this.navParams.get("form");
+        if (!this.form.list.id) {
+            this.listService.get(this.form.list).then((list) => {
+                this.form.list = list[0];
+            });
         }
-        this.listService.getAll().then((lists) => {
-            this.lists = lists;
-        });
     }
 
     selectList() {
         if (this.platform.is("ios")) {
-            this.nav.push(SearchSelectList, { form: this.form });
+            this.nav.push(SearchSelectList, { form: this.form, edit: true });
         } else {
             this.showMaterialSelect();
         }
@@ -65,7 +58,6 @@ export class CreateReminder {
             alert.addButton({
                 text: 'OK',
                 handler: data => {
-                    console.log(data);
                     if (data == 'create') {
                         this.nav.push(CreateList, { createReminder: true });
                     } else {
@@ -86,7 +78,7 @@ export class CreateReminder {
             volume: this.form.volume,
             active: 1
         }
-        this.reminderService.add(reminder).then(() => {
+        this.reminderService.edit(this.form.id, reminder).then(() => {
             this.nav.setRoot(Reminders);
         });
     }

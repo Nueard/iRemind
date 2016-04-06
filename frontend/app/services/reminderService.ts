@@ -24,6 +24,15 @@ export class ReminderService {
             this.geofenceService.sync();
         }, this.err);
     }
+    
+    edit(id: number, reminder) {
+        var query =
+            "UPDATE reminders SET list = (?), name = (?), note = (?), volume = (?) WHERE id = (?)";
+        var params = [reminder.list, reminder.name, reminder.note, reminder.volume, id];
+        return this.dbService.exec(query, params).then((res) => {
+            this.geofenceService.sync();
+        }, this.err);
+    }
 
     get() {
         var query = "SELECT * FROM reminders";

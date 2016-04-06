@@ -1,5 +1,6 @@
 import {Page, NavController, NavParams} from 'ionic-angular';
 import {CreateReminder} from '../createReminder';
+import {EditReminder} from '../../edit/editReminder';
 import {CreateList} from '../../../lists/create/createList';
 import {Reminders} from '../../reminders';
 import {ListService} from '../../../../services/listService';
@@ -13,9 +14,9 @@ export class SearchSelectList {
     searchbar: any = "";
     form: any;
     inpt: any;
-    
 
-    constructor(private nav: NavController, private listService: ListService, navParams: NavParams) {
+
+    constructor(private nav: NavController, private listService: ListService, private navParams: NavParams) {
         this.listService.getAll().then((lists) => {
             this.lists = lists;
             this.items = lists;
@@ -40,15 +41,28 @@ export class SearchSelectList {
     }
 
     selectLocation(list) {
-        this.form.list = list;
-        this.nav.setPages([
-            {
-                page: Reminders
-            },
-            {
-                page: CreateReminder,
-                params: { form: this.form }
-            }]);
+        if (this.navParams.get("edit")) {
+            this.form.list = list;
+            this.nav.setPages([
+                {
+                    page: Reminders
+                },
+                {
+                    page: EditReminder,
+                    params: { form: this.form }
+                }]);
+        } else {
+            this.form.list = list;
+            this.nav.setPages([
+                {
+                    page: Reminders
+                },
+                {
+                    page: CreateReminder,
+                    params: { form: this.form }
+                }]);
+        }
+
     }
 
     onCancel(searchbar) {

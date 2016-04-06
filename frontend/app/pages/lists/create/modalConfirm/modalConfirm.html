@@ -1,0 +1,19 @@
+<ion-navbar *navbar showWhen="ios">
+    <ion-buttons end>
+        <button (click)="save()">
+            Save
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-label>Name</ion-label>
+            <ion-input type="text" [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item *ngFor="#location of locations">
+            {{location.name}}
+        </ion-item>
+    </ion-list>
+</ion-content>
