@@ -1,10 +1,7 @@
-<ion-navbar *navbar>
+<ion-navbar *navbar showWhen="ios">
     <ion-buttons end>
-        <button showWhen="ios" (click)="save()">
+        <button (click)="save()">
             Save
-        </button>
-        <button showWhen="android" (click)="save()">
-            <ion-icon name="add"></ion-icon>
         </button>
     </ion-buttons>
 </ion-navbar>
@@ -13,3 +10,6 @@
     <ion-searchbar id="mapSearchbar" [(ngModel)]="search" [hideCancelButton]="true" (input)="onInput($event)" [debounce]="1000"></ion-searchbar>
     <div id="map"></div>
 </ion-content>
+<button showWhen="android" fab fab-right fab-bottom (click)="save()" class="fab">
+    <ion-icon name="add"></ion-icon>
+</button>

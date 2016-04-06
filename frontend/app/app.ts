@@ -4,6 +4,7 @@ import {Reminders} from './pages/reminders/reminders';
 import {CreateReminder} from './pages/reminders/create/createReminder';
 import {Settings} from './pages/settings/settings';
 import {Lists} from './pages/lists/lists';
+import {Geolocation} from 'ionic-native';
 
 import {LocationService} from './services/locationService';
 import {ListService} from './services/listService';
@@ -39,6 +40,7 @@ export class MyApp {
         platform: Platform) {
         platform.ready().then(() => {
             StatusBar.styleDefault();
+            Geolocation.getCurrentPosition();
             if (window.geofence != undefined) {
                 this.geofenceService.init();
             }
