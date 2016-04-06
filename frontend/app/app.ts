@@ -49,6 +49,14 @@ export class MyApp {
             })
         });
 
+        document.addEventListener('backbutton', () => {
+            let nav = this.app.getComponent('nav');
+            if (!nav.canGoBack()) {
+                return nav.app.exitApp();
+            }
+            return nav.pop();
+        }, false);
+
     }
 
     goPage(page) {
