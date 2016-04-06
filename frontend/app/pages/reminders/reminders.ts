@@ -8,6 +8,14 @@ import {ReminderService} from '../../services/reminderService';
 export class Reminders {
     reminders = [];
     expandedId: number = -1;
+    form = {
+        name: "",
+        note: "",
+        list: {
+            id: -1
+        },
+        volume: 50
+    };
 
     constructor(private nav: NavController, private reminderService: ReminderService) {
         this.reminderService.get().then((reminders) => {
@@ -27,6 +35,9 @@ export class Reminders {
             this.expandedId = -1;
         } else {
             this.expandedId = reminder.id;
+            this.form.name = reminder.name;
+            this.form.note = reminder.note;
+            this.form.volume = reminder.volume;
         }
     }
 

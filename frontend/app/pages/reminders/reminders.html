@@ -11,12 +11,41 @@
 </ion-navbar>
 <ion-content>
     <ion-list *ngIf="reminders.length > 0" no-lines>
-        <ion-item *ngFor="#reminder of reminders">
-            <ion-label>
-                {{ reminder.name }}
-            </ion-label>
-            <ion-toggle checked="{{reminder.active}}" (click)="toggleActive(reminder)"></ion-toggle>
-        </ion-item>
+        <template ngFor #reminder [ngForOf]="reminders">
+            <ion-item *ngIf="expandedId != reminder.id">
+                <ion-label (click)="expand(reminder)">
+                    <h2>{{ reminder.name }}</h2>
+                    <p>{{ reminder.note }}</p>
+                </ion-label>
+                <ion-toggle item-right checked="{{reminder.active}}" (click)="toggleActive(reminder)"></ion-toggle>
+            </ion-item>
+            <ion-item *ngIf="expandedId == reminder.id">
+                <ion-label>Name</ion-label>
+                <ion-input type="text" [(ngModel)]="form.name"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="expandedId == reminder.id">
+                <ion-label>
+                    Note</ion-label>
+                <ion-input type="text" [(ngModel)]="form.note"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="expandedId == reminder.id">
+                <h2 *ngIf="form.list.name">{{ form.list.name }}</h2>
+                <h2 *ngIf="!form.list.name">Select list</h2>
+                <button clear item-right (click)="selectList()">
+                    <ion-icon name="map"></ion-icon>
+                </button>
+            </ion-item>
+
+            <div class="ionic" *ngIf="expandedId == reminder.id">
+                <div class="range">
+                    <ion-icon name="volume-up" class="icon"></ion-icon>
+                    <input type="range" [(ngModel)]="form.volume" min="0" max="100">
+                    <span item-right style="min-width:40px;text-align:right;">{{form.volume}} %</span>
+                </div>
+            </div>
+        </template>
     </ion-list>
     <ion-card *ngIf="reminders.length == 0">
         <ion-card-header>

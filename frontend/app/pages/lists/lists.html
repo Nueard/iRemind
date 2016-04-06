@@ -13,24 +13,28 @@
 <ion-content>
     <ion-list *ngIf="lists.length > 0" no-lines>
         <template ngFor #list [ngForOf]="lists">
-        <ion-item *ngIf="list.favourite == 1">
-            <h2 (click)="edit(list)">{{ list.name }}</h2>
-            <p (click)="edit(list)">has 3 locations in it</p>
-            <button clear item-right (click)="toggleFavourite(list)">
-                <ion-icon primary name="star-outline" *ngIf="list.favourite == 0"></ion-icon>
-                <ion-icon primary name="star" *ngIf="list.favourite == 1"></ion-icon>
-            </button>
-        </ion-item>
+            <ion-item *ngIf="list.favourite == 1">
+                <ion-label (click)="edit(list)">
+                    <h2>{{ list.name }}</h2>
+                    <p>has 3 locations in it</p>
+                </ion-label>
+                <button clear item-right (click)="toggleFavourite(list)">
+                    <ion-icon primary name="star-outline" *ngIf="list.favourite == 0"></ion-icon>
+                    <ion-icon primary name="star" *ngIf="list.favourite == 1"></ion-icon>
+                </button>
+            </ion-item>
         </template>
-        <template ngFor #list [ngForOf]="lists">        
-        <ion-item *ngIf="list.favourite == 0">
-            <h2 (click)="edit(list)">{{ list.name }}</h2>
-            <p (click)="edit(list)">has 3 locations in it</p>
-            <button clear item-right (click)="toggleFavourite(list)">
-                <ion-icon primary name="star-outline" *ngIf="list.favourite == 0"></ion-icon>
-                <ion-icon primary name="star" *ngIf="list.favourite == 1"></ion-icon>
-            </button>
-        </ion-item>
+        <template ngFor #list [ngForOf]="lists">
+            <ion-item *ngIf="list.favourite == 0">
+                <ion-label (click)="edit(list)">
+                    <h2>{{ list.name }}</h2>
+                    <p>has 3 locations in it</p>
+                </ion-label>
+                <button clear item-right (click)="toggleFavourite(list)">
+                    <ion-icon primary name="star-outline" *ngIf="list.favourite == 0"></ion-icon>
+                    <ion-icon primary name="star" *ngIf="list.favourite == 1"></ion-icon>
+                </button>
+            </ion-item>
         </template>
     </ion-list>
     <ion-card *ngIf="lists.length == 0">
