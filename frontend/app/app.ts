@@ -16,6 +16,7 @@ import {enableProdMode} from 'angular2/core';
 enableProdMode();
 
 declare var window: any;
+declare var navigator: any;
 
 @App({
     templateUrl: 'build/app.html',
@@ -52,7 +53,7 @@ export class MyApp {
         document.addEventListener('backbutton', () => {
             let nav = this.app.getComponent('nav');
             if (!nav.canGoBack()) {
-                return nav.app.exitApp();
+                return navigator.app.exitApp();
             }
             return nav.pop();
         }, false);
