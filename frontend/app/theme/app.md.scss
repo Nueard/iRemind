@@ -30,3 +30,9 @@
 // --------------------------------------------------
 // CSS that should only apply to the Material Design app
 @import "custom/range.ios";
+
+#mapSearchbar {
+    position: fixed;
+    top:56px;
+    z-index:105;
+}

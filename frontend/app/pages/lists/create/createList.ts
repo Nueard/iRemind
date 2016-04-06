@@ -34,6 +34,8 @@ export class CreateList {
                 let mapOptions = {
                     center: latLng,
                     zoom: 15,
+                    mapTypeControl: false,
+                    disableDefaultUI: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
                 this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
