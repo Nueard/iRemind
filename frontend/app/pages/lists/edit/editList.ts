@@ -5,7 +5,7 @@ import {Lists} from '../lists';
 declare var google: any;
 
 @Page({
-    templateUrl: 'build/pages/lists/edit/editList.html'
+    templateUrl: 'build/pages/lists/create/createList.html'
 })
 export class EditList {
     map: any;
