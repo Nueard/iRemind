@@ -42,7 +42,7 @@ export class CreateList {
                 this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
                 this.map.addListener('click', this.addClickLocation);
                 this.markers = [];
-                this.addMarker(latLng, false);
+                this.addMarker(latLng, "My location", false);
             },
             (error) => {
                 console.error(error);
@@ -62,9 +62,10 @@ export class CreateList {
             });
     }
 
-    addMarker = (position, removable: boolean) => {
+    addMarker = (position, name:string, removable: boolean) => {
         let marker = new google.maps.Marker({
             map: this.map,
+            title: name,
             animation: google.maps.Animation.DROP,
             position: position
         });
@@ -91,7 +92,7 @@ export class CreateList {
     }
 
     addClickLocation = (event) => {
-        this.addMarker(event.latLng, true);
+        this.addMarker(event.latLng, "Custom location", true);
     }
 
     clearAllMarkers = () => {
@@ -112,7 +113,7 @@ export class CreateList {
             };
 
             let service = new google.maps.places.PlacesService(this.map);
-            service.radarSearch(request, this.searchResults);
+            service.nearbySearch(request, this.searchResults);
         }
     }
 
@@ -120,7 +121,8 @@ export class CreateList {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             this.clearAllMarkers();
             for (var i = 0; i < results.length; i++) {
-                this.addMarker(results[i].geometry.location, true);
+                console.log(results[i]);
+                this.addMarker(results[i].geometry.location, results[i].name, true);
             }
         } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
             let alert = Alert.create({
@@ -134,17 +136,23 @@ export class CreateList {
         }
     }
 
+    parseMarkers() {
+        let locations = [];
+        this.markers.forEach((marker) => {
+            console.log(marker);
+            locations.push({
+                name: marker.title,
+                latitude: marker.position.lat(),
+                longitude: marker.position.lng(),
+                radius: Math.round(marker.radius)
+            });
+        })
+        return locations;
+    }
+
     save() {
         if (this.platform.is("ios")) {
-            let locations = [];
-            this.markers.forEach((marker) => {
-                locations.push({
-                    name: "Custom location",
-                    latitude: marker.position.lat(),
-                    longitude: marker.position.lng(),
-                    radius: Math.round(marker.radius)
-                });
-            })
+            let locations = this.parseMarkers();
             this.nav.push(ModalConfirm, { locations: locations, createReminder: this.navParams.get("createReminder") });
         } else {
             this.alertSave();
@@ -169,15 +177,7 @@ export class CreateList {
                     text: 'Save',
                     handler: data => {
                         if (data.name.trim().length != 0) {
-                            let locations = [];
-                            this.markers.forEach((marker) => {
-                                locations.push({
-                                    name: "Custom location",
-                                    latitude: marker.position.lat(),
-                                    longitude: marker.position.lng(),
-                                    radius: Math.round(marker.radius)
-                                });
-                            })
+                            let locations = this.parseMarkers();
                             let list: List = {
                                 name: data.name,
                                 locations: locations,

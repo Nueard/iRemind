@@ -65,7 +65,6 @@ export class CreateReminder {
             alert.addButton({
                 text: 'OK',
                 handler: data => {
-                    console.log(data);
                     if (data == 'create') {
                         this.nav.push(CreateList, { createReminder: true });
                     } else {

@@ -10,20 +10,24 @@
 <ion-content>
     <ion-list>
         <ion-item>
-            <ion-label>Name</ion-label>
+            <ion-label fixed>Name</ion-label>
             <ion-input type="text" [(ngModel)]="form.name"></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-label>Note</ion-label>
+            <ion-label fixed>Note</ion-label>
             <ion-input type="text" [(ngModel)]="form.note"></ion-input>
         </ion-item>
 
         <ion-item>
-            <h2 *ngIf="form.list.name">{{ form.list.name }}</h2>
-            <h2 *ngIf="!form.list.name">Select list</h2>
+            <ion-label fixed class="customlabel customlabel-mar">
+                Location
+            </ion-label>
+            <ion-label>
+                {{ form.list.name }}
+            </ion-label>
             <button clear item-right (click)="selectList()">
-                <ion-icon name="map"></ion-icon>
+                Select
             </button>
         </ion-item>
 
