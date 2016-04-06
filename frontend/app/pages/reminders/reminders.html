@@ -1,8 +1,13 @@
-<ion-navbar *navbar primary>
-    <button menuToggle>
+<ion-navbar *navbar>
+    <button menuToggle showWhen="android">
         <ion-icon name='menu'></ion-icon>
     </button>
     <ion-title>Reminders</ion-title>
+    <ion-buttons end showWhen="ios">
+        <button royal (click)="create()">
+            Add
+        </button>
+    </ion-buttons>
 </ion-navbar>
 <ion-content>
     <ion-list *ngIf="reminders.length > 0" no-lines>
@@ -22,6 +27,6 @@
         </ion-card-content>
     </ion-card>
 </ion-content>
-<button fab fab-right fab-bottom (click)="create()" class="fab">
+<button showWhen="android" fab fab-right fab-bottom (click)="create()" class="fab">
     <ion-icon name="add"></ion-icon>
 </button>

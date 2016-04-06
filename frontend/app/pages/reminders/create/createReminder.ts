@@ -4,7 +4,6 @@ import {ReminderService, Reminder} from '../../../services/reminderService';
 import {CreateList} from '../../lists/create/createList';
 import {Reminders} from '../reminders';
 import {SearchSelectList} from './selectList/searchSelectList';
-import {SelectSelectList} from './selectList/selectSelectList';
 
 @Page({
     templateUrl: 'build/pages/reminders/create/createReminder.html'
@@ -36,19 +35,17 @@ export class CreateReminder {
     }
 
     selectList() {
-        if (this.platform.is("android")) {
-            this.showMaterialSelect();
-        } else if (this.platform.is("ios")) {
+        if (this.platform.is("ios")) {
             this.nav.push(SearchSelectList, { form: this.form });
         } else {
-            this.nav.push(SelectSelectList, { form: this.form });
+            this.showMaterialSelect();
         }
     }
 
     showMaterialSelect() {
         this.listService.getAll().then((lists) => {
             let alert = Alert.create();
-            alert.setTitle('Lightsaber color');
+            alert.setTitle('Choose locations');
 
             lists.forEach((list, index) => {
                 alert.addInput({
