@@ -79,6 +79,9 @@ export class CreateReminder {
     }
 
     submit() {
+        if (this.form.name.trim().length == 0) {
+            return;
+        }
         let reminder: Reminder = {
             list: this.form.list.id,
             note: this.form.note,
