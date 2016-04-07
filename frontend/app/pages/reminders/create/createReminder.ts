@@ -46,30 +46,32 @@ export class CreateReminder {
     showMaterialSelect() {
         this.listService.getAll().then((lists) => {
             let alert = Alert.create();
-            alert.setTitle('Choose locations');
-
-            lists.forEach((list, index) => {
-                alert.addInput({
-                    type: 'radio',
-                    label: list.name,
-                    value: list,
-                    checked: index == 0
+            alert.setTitle('Locations');
+            if (lists.length == 0) {
+                alert.setSubTitle('No locations found.');
+            } else {
+                lists.forEach((list, index) => {
+                    alert.addInput({
+                        type: 'radio',
+                        label: list.name,
+                        value: list,
+                        checked: index == 0
+                    });
                 });
-            });
-            alert.addInput({
-                type: 'radio',
-                label: 'Create new',
-                value: 'create'
-            });
-
+            }
             alert.addButton({
                 text: 'OK',
                 handler: data => {
-                    if (data == 'create') {
-                        this.nav.push(CreateList, { createReminder: true });
-                    } else {
+                    if (data) {
                         this.form.list = data;
                     }
+                }
+            });
+
+            alert.addButton({
+                text: 'Create',
+                handler: data => {
+                    this.nav.push(CreateList, { createReminder: true });
                 }
             });
 

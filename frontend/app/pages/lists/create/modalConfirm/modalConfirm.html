@@ -12,6 +12,11 @@
             <ion-label>Name</ion-label>
             <ion-input type="text" [(ngModel)]="name"></ion-input>
         </ion-item>
+    </ion-list>
+    <ion-list>
+        <ion-list-header>
+            Places
+        </ion-list-header>
         <ion-item *ngFor="#location of locations">
             {{location.name}}
         </ion-item>
