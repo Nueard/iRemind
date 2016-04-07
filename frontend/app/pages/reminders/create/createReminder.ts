@@ -59,19 +59,20 @@ export class CreateReminder {
                     });
                 });
             }
+
+            alert.addButton({
+                text: 'Create',
+                handler: data => {
+                    this.nav.push(CreateList, { createReminder: true });
+                }
+            });
+            
             alert.addButton({
                 text: 'OK',
                 handler: data => {
                     if (data) {
                         this.form.list = data;
                     }
-                }
-            });
-
-            alert.addButton({
-                text: 'Create',
-                handler: data => {
-                    this.nav.push(CreateList, { createReminder: true });
                 }
             });
 
