@@ -17,7 +17,7 @@
                     <h2>{{ reminder.name | uppercase }}</h2>
                     <p>{{ reminder.note }}</p>
                 </ion-label>
-                <ion-toggle item-right checked="{{reminder.active}}" (click)="toggleActive(reminder)"></ion-toggle>
+                <ion-toggle item-right checked="{{reminder.activeb}}" (click)="toggleActive(reminder)"></ion-toggle>
             </ion-item>
         </template>
     </ion-list>

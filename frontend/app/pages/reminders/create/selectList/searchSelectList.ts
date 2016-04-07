@@ -70,6 +70,6 @@ export class SearchSelectList {
     }
 
     newList() {
-        this.nav.push(CreateList, { createReminder: true });
+        this.nav.push(CreateList, { createReminder: true, form: this.form });
     }
 }

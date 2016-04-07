@@ -4,6 +4,7 @@ import {Lists} from '../lists';
 import {ModalConfirm} from './modalConfirm/modalConfirm';
 import {Reminders} from '../../reminders/reminders';
 import {CreateReminder} from '../../reminders/create/createReminder';
+import {EditReminder} from '../../reminders/edit/editReminder';
 import {Geolocation} from 'ionic-native';
 
 declare var google: any;
@@ -62,7 +63,7 @@ export class CreateList {
             });
     }
 
-    addMarker = (position, name:string, removable: boolean) => {
+    addMarker = (position, name: string, removable: boolean) => {
         let marker = new google.maps.Marker({
             map: this.map,
             title: name,
@@ -139,7 +140,6 @@ export class CreateList {
     parseMarkers() {
         let locations = [];
         this.markers.forEach((marker) => {
-            console.log(marker);
             locations.push({
                 name: marker.title,
                 latitude: marker.position.lat(),
@@ -153,7 +153,11 @@ export class CreateList {
     save() {
         if (this.platform.is("ios")) {
             let locations = this.parseMarkers();
-            this.nav.push(ModalConfirm, { locations: locations, createReminder: this.navParams.get("createReminder") });
+            this.nav.push(ModalConfirm, {
+                locations: locations,
+                form: this.navParams.get("form"),
+                createReminder: this.navParams.get("createReminder")
+            });
         } else {
             this.alertSave();
         }
@@ -184,16 +188,19 @@ export class CreateList {
                                 favourite: 0
                             };
                             this.listService.add(list).then((res) => {
-                                if (this.navParams.get("createReminder")) {
+                                if (this.navParams.get("createReminder") || this.navParams.get("editReminder")) {
                                     this.listService.get(res.res.insertId).then((l) => {
                                         this.nav.setRoot(Reminders);
-                                        this.nav.push(CreateReminder, {
-                                            form: {
-                                                name: "",
-                                                note: "",
-                                                volume: 50,
-                                                list: l[0]
-                                            }
+                                        let page;
+                                        if (this.navParams.get("createReminder")) {
+                                            page = CreateReminder;
+                                        } else {
+                                            page = EditReminder;
+                                        }
+                                        let form = this.navParams.get("form");
+                                        form.list = l[0];
+                                        this.nav.push(page, {
+                                            form: form
                                         });
                                     });
                                 } else {

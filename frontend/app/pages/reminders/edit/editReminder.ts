@@ -49,18 +49,18 @@ export class EditReminder {
                     checked: index == 0
                 });
             });
-            alert.addInput({
-                type: 'radio',
-                label: 'Create new',
-                value: 'create'
+
+            alert.addButton({
+                text: 'Create',
+                handler: data => {
+                    this.nav.push(CreateList, {form: this.form, editReminder: true });
+                }
             });
 
             alert.addButton({
                 text: 'OK',
                 handler: data => {
-                    if (data == 'create') {
-                        this.nav.push(CreateList, { createReminder: true });
-                    } else {
+                    if (data) {
                         this.form.list = data;
                     }
                 }

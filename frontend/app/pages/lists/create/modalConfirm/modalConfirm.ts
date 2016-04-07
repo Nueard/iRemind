@@ -2,6 +2,7 @@ import {Page, NavController, Platform, NavParams} from 'ionic-angular';
 import {ListService, List} from '../../../../services/listService';
 import {Reminders} from '../../../reminders/reminders';
 import {CreateReminder} from '../../../reminders/create/createReminder';
+import {EditReminder} from '../../../reminders/edit/editReminder';
 import {Lists} from '../../lists';
 
 declare var google: any;
@@ -28,16 +29,19 @@ export class ModalConfirm {
             favourite: 0
         }
         this.listService.add(list).then((res) => {
-            if (this.navParams.get("createReminder")) {
+            if (this.navParams.get("createReminder") || this.navParams.get("editReminder")) {
                 this.listService.get(res.res.insertId).then((l) => {
                     this.nav.setRoot(Reminders);
-                    this.nav.push(CreateReminder, {
-                        form: {
-                            name: "",
-                            note: "",
-                            volume: 50,
-                            list: l[0]
-                        }
+                    let page;
+                    if (this.navParams.get("createReminder")) {
+                        page = CreateReminder;
+                    } else {
+                        page = EditReminder;
+                    }
+                    let f = this.navParams.get("form");
+                    f.list = l[0];
+                    this.nav.push(page, {
+                        form: f
                     });
                 });
             } else {

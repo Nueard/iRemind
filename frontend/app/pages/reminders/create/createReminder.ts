@@ -63,7 +63,7 @@ export class CreateReminder {
             alert.addButton({
                 text: 'Create',
                 handler: data => {
-                    this.nav.push(CreateList, { createReminder: true });
+                    this.nav.push(CreateList, {form: this.form, createReminder: true });
                 }
             });
             
