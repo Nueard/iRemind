@@ -1,14 +1,11 @@
 import {Page, NavController} from 'ionic-angular';
-import {CreateList} from './create/createList';
-import {CreateReminder} from '../reminders/create/createReminder';
-import {EditList} from './edit/editList';
 import {ListService} from '../../services/listService';
 import {LocationService} from '../../services/locationService';
-import {MaxLengthPipe} from '../../services/pipes/maxLength.pipe';
+import {ListDirective} from '../../services/directives/list';
 
 @Page({
     templateUrl: 'build/pages/lists/lists.html',
-    pipes: [MaxLengthPipe]
+    directives: [ListDirective]
 })
 export class Lists {
     lists = [];
@@ -19,7 +16,6 @@ export class Lists {
         private locationService: LocationService) {
         this.listService.getAll().then((lists) => {
             lists.forEach((list, index) => {
-                list.name = "This is a very long and lonesome road";
                 lists[index].favouriteb = list.favourite == 1;
                 this.locationService.getByList(list.id).then((locations) => {
                     list.numLocations = locations.length; 
@@ -28,36 +24,5 @@ export class Lists {
             })
             this.lists = lists;
         });
-    }
-
-    toggleFavourite(list) {
-        list.favouriteb = !list.favouriteb;
-        this.listService.setFavourite(list.id, list.favouriteb ? 1 : 0);
-    }
-
-    create() {
-        this.nav.push(CreateList);
-    }
-
-    edit(list) {
-        this.locationService.getByList(list.id).then((locations) => {
-            list.locations = locations;
-            this.nav.push(EditList, { list: list });
-        });
-    }
-    
-    showMap(list) {
-        list.showMap = !list.showMap;
-    }
-
-    createReminder(list) {
-        let form = {
-            name: "",
-            note: "",
-            list: list,
-            radius: 50,
-            volume: 50
-        }
-        this.nav.push(CreateReminder, { form: form });
     }
 }

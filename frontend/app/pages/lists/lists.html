@@ -12,38 +12,10 @@
 
 <ion-content>
     <template ngFor #list [ngForOf]="lists">
-        <ion-card class="adv-map">
-            <ion-item (click)="showMap(list)">
-                <ion-icon item-left name='arrow-down' md="ios-arrow-down" *ngIf="!list.showMap"></ion-icon>
-                <ion-icon item-left name='arrow-up' md="ios-arrow-up" *ngIf="list.showMap"></ion-icon>
-                <h2><b>{{ list.name | maxLength }}</b></h2>
-                <span item-right secondary style="font-size:1.2rem">
-                    <ion-icon name='pin'></ion-icon>
-                    {{ list.numLocations }} locations
-                </span>
-            </ion-item>
-            <div style="position: relative" *ngIf="list.showMap">
-                <img src="http://placehold.it/350x150">
-                <!--<button fab fab-right fab-top class="fab-map" (click)="createReminder(list)">
-                    <ion-icon name="alarm"></ion-icon>
-                </button>-->
-            </div>
-            <ion-item actions>
-                <button item-right clear class="fab-map" (click)="createReminder(list)">
-                    <ion-icon name="alarm"></ion-icon>
-                    Create reminder
-                </button>
-                <button lite clear item-right (click)="toggleFavourite(list)">
-                    <ion-icon name="star-outline" *ngIf="!list.favouriteb"></ion-icon>
-                    <ion-icon name="star" *ngIf="list.favouriteb"></ion-icon>
-                    Favourite
-                </button>
-                <button primary clear item-right (click)="edit(list)">
-                    <ion-icon name='create'></ion-icon>
-                    Edit
-                </button>
-            </ion-item>
-        </ion-card>
+        <div [ir-list]="list" *ngIf="list.favouriteb"></div>
+    </template>
+    <template ngFor #list [ngForOf]="lists">
+        <div [ir-list]="list" *ngIf="!list.favouriteb"></div>
     </template>
 </ion-content>
 
