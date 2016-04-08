@@ -15,12 +15,12 @@
                 Home
             </ion-item>
             <ion-item (click)="goPage(settings)">
-                <ion-icon name="cog" item-left></ion-icon>
+                <ion-icon name="settings" item-left></ion-icon>
                 Settings
             </ion-item>
         </ion-list>
         <ion-item-group>
-            <ion-item-divider dark>Favourites</ion-item-divider>
+            <ion-item-divider lite>Favourites</ion-item-divider>
         </ion-item-group>
         <ion-list no-lines>
             <ion-item *ngFor="#list of lists" (click)="createReminder(list)">

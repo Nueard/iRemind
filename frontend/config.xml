@@ -5,8 +5,8 @@
     <author email="ivelinpenchev@gmail.com" href="http://ionicframework.com/">Team19</author>
     <content src="index.html" />
     <access origin="*" />
+    <access origin="http://*.googleapis.com/*" />
     <allow-navigation href="http://*/*" />
-    <allow-intent href="http://*.googleapis.com/*" />
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>

@@ -45,6 +45,7 @@ export class MyApp {
             this.listService.getFavourites().then((lists) => {
                 this.lists = lists;
             });
+            this.menu.swipeEnable(false);
         });
 
         document.addEventListener('backbutton', () => {

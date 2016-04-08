@@ -1,9 +1,10 @@
 import {Component, Input} from 'angular2/core';
-import {NavController} from 'ionic-angular';
+import {NavController, Platform} from 'ionic-angular';
 
 import {EditReminder} from '../../../pages/reminders/edit/editReminder';
 
 import {ReminderService} from '../../reminderService';
+import {ListService} from '../../listService';
 import {CreateReminder} from '../../../pages/reminders/create/createReminder';
 import {MaxLengthPipe} from '../../pipes/maxLength.pipe';
 import {IONIC_DIRECTIVES} from 'ionic-angular/config/directives';
@@ -20,11 +21,14 @@ export class ReminderDirective {
 
     constructor(
         private nav: NavController,
-        private reminderService: ReminderService) { }
-
-
-    create() {
-        this.nav.push(CreateReminder);
+        private reminderService: ReminderService,
+        private listService: ListService,
+        platform: Platform) {
+        platform.ready().then(() => {
+            this.listService.get(this.reminder.list).then((list: any) => {
+                this.reminder.listName = list[0].name;
+            })
+        });
     }
 
     edit() {
