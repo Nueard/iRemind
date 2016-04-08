@@ -13,26 +13,31 @@
 <ion-content>
     <template ngFor #list [ngForOf]="lists">
         <ion-card class="adv-map">
-            <div style="position: relative">
+            <div style="position: relative" *ngIf="list.showMap">
                 <img src="http://placehold.it/350x150">
-                <button fab fab-right fab-top class="fab-map">
+                <!--<button fab fab-right fab-top class="fab-map" (click)="createReminder(list)">
                     <ion-icon name="alarm"></ion-icon>
-                </button>
+                </button>-->
             </div>
             <ion-item>
-                <ion-icon subtle large item-left name='map'></ion-icon>
-                <h2>{{ list.name }}</h2>
+                <ion-icon item-left name='map'></ion-icon>
+                <h2>{{ list.name | maxLength:15 }}</h2>
+                <button item-right clear secondary (click)="showMap(list)">
+                    <ion-icon name='pin'></ion-icon>
+                    {{ list.numLocations }} locations
+                </button>
             </ion-item>
             <ion-item actions>
-                <span item-left secondary>
-                    <ion-icon name='pin'></ion-icon>
-                    3 locations
-                </span>
-                <button primary clear item-right>
-                    <ion-icon name='star'></ion-icon>
+                <button item-right clear class="fab-map" (click)="createReminder(list)">
+                    <ion-icon name="alarm"></ion-icon>
+                    Create reminder
+                </button>
+                <button lite clear item-right (click)="toggleFavourite(list)">
+                    <ion-icon name="star-outline" *ngIf="!list.favouriteb"></ion-icon>
+                    <ion-icon name="star" *ngIf="list.favouriteb"></ion-icon>
                     Favourite
                 </button>
-                <button primary clear item-right>
+                <button primary clear item-right (click)="edit(list)">
                     <ion-icon name='create'></ion-icon>
                     Edit
                 </button>
@@ -41,6 +46,6 @@
     </template>
 </ion-content>
 
-<button showWhen="android" fab fab-right fab-bottom (click)="create()" class="fab">
+<button showWhen="android" fab fab-right fab-bottom (click)="create()" class="fab-ontop">
     <ion-icon name="add"></ion-icon>
 </button>

@@ -4,6 +4,6 @@ ion-list {
 .text-white {
     color: white;
 }
-// .fab {
-//     z-index:100;
-// }
+.fab-ontop {
+    z-index: 200;
+}
