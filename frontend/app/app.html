@@ -1,4 +1,4 @@
-<ion-menu [content]="content" showWhen="android">
+<ion-menu [content]="content">
     <ion-content>
         <ion-list no-lines>
             <ion-item style="background-image: url('http://www.carlascovers.com/covers-images/download/achtung_panzer_235535.jpg');">
@@ -11,12 +11,8 @@
                 <ion-icon name="chevron-down" item-right></ion-icon>
             </ion-item>
             <ion-item (click)="goPage(rootPage)">
-                <ion-icon name="alarm" item-left></ion-icon>
-                Reminders
-            </ion-item>
-            <ion-item (click)="goPage(locations)">
-                <ion-icon name="locate" item-left></ion-icon>
-                Locations
+                <ion-icon name="home" item-left></ion-icon>
+                Home
             </ion-item>
             <ion-item (click)="goPage(settings)">
                 <ion-icon name="cog" item-left></ion-icon>
@@ -35,13 +31,4 @@
     </ion-content>
 </ion-menu>
 
-<ion-tabs #content showWhen="ios">
-    <ion-tab tabIcon="alarm" tabTitle="Reminders" [root]="rootPage"></ion-tab>
-    <ion-tab tabIcon="map" tabTitle="Locations" [root]="locations"></ion-tab>
-    <ion-tab tabIcon="cog" tabTitle="Settings" [root]="settings"></ion-tab>
-</ion-tabs>
-
-<ion-tabs id="nav"  #content primary showWhen="android">
-    <ion-tab tabTitle="Reminders" [root]="rootPage"></ion-tab>
-    <ion-tab tabTitle="Locations" [root]="locations"></ion-tab>
-</ion-tabs>
+<ion-nav id="nav" [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

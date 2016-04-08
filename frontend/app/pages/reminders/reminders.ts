@@ -2,9 +2,11 @@ import {Page, NavController} from 'ionic-angular';
 import {CreateReminder} from './create/createReminder';
 import {EditReminder} from './edit/editReminder';
 import {ReminderService} from '../../services/reminderService';
+import {ReminderDirective} from '../../services/directives/reminder/reminder';
 
 @Page({
-    templateUrl: 'build/pages/reminders/reminders.html'
+    templateUrl: 'build/pages/reminders/reminders.html',
+    directives: [ReminderDirective]
 })
 export class Reminders {
     reminders = [];
@@ -18,7 +20,9 @@ export class Reminders {
         volume: 50
     };
 
-    constructor(private nav: NavController, private reminderService: ReminderService) {
+    constructor(
+        private nav: NavController,
+        private reminderService: ReminderService) {
         this.reminderService.get().then((reminders) => {
             reminders.forEach((reminder, index) => {
                 reminders[index].activeb = reminder.active == 1;
@@ -26,22 +30,5 @@ export class Reminders {
             });
             this.reminders = reminders;
         });
-    }
-
-    create() {
-        this.nav.push(CreateReminder);
-    }
-    
-    edit(reminder) {
-        this.nav.push(EditReminder, {form: reminder});
-    }
-
-    expand(reminder) {
-        reminder.showMap = !reminder.showMap;
-    }
-
-    toggleActive = (reminder) => {
-        reminder.activeb = !reminder.activeb;
-        this.reminderService.setActive(reminder.id, reminder.activeb ? 1 : 0);
     }
 }

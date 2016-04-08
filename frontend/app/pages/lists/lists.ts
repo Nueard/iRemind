@@ -1,7 +1,9 @@
 import {Page, NavController} from 'ionic-angular';
 import {ListService} from '../../services/listService';
 import {LocationService} from '../../services/locationService';
-import {ListDirective} from '../../services/directives/list';
+import {ListDirective} from '../../services/directives/list/list';
+
+import {CreateList} from './create/createList';
 
 @Page({
     templateUrl: 'build/pages/lists/lists.html',
@@ -24,5 +26,9 @@ export class Lists {
             })
             this.lists = lists;
         });
+    }
+
+    create() {
+        this.nav.push(CreateList);
     }
 }

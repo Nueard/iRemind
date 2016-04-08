@@ -1,0 +1,26 @@
+<ion-card class="adv-map">
+    <ion-item (click)="expand()">
+        <ion-icon subtle large item-left name='alarm'></ion-icon>
+        <h2><b>{{ reminder.name }}</b></h2>
+        <p>{{ reminder.note }}</p>
+        <span item-right>
+            <ion-icon name='arrow-down' md="ios-arrow-down" *ngIf="!reminder.showMap"></ion-icon>
+            <ion-icon name='arrow-up' md="ios-arrow-up" *ngIf="reminder.showMap"></ion-icon>
+        </span>
+    </ion-item>
+    <div *ngIf="reminder.showMap">
+        <img src="http://placehold.it/350x150">
+    </div>
+    <ion-item actions>
+        <span item-left secondary>
+                    <ion-icon name='pin'></ion-icon>
+                    Test location
+                </span>
+        <button clear item-right (click)="toggleActive()">
+            Activate
+        </button>
+        <button clear item-right (click)="edit()">
+            Edit
+        </button>
+    </ion-item>
+</ion-card>

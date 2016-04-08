@@ -6,11 +6,11 @@
         </button>
         <h2 (click)="showMap(list)">{{ list.name | maxLength }}</h2>
         <span item-right (click)="showMap()">
-                    <ion-icon name='arrow-down' md="ios-arrow-down" *ngIf="!list.showMap"></ion-icon>
-                    <ion-icon name='arrow-up' md="ios-arrow-up" *ngIf="list.showMap"></ion-icon>
-                </span>
+            <ion-icon name='arrow-down' md="ios-arrow-down" *ngIf="!list.showMap"></ion-icon>
+            <ion-icon name='arrow-up' md="ios-arrow-up" *ngIf="list.showMap"></ion-icon>
+        </span>
     </ion-item>
-    <div style="position: relative" *ngIf="list.showMap">
+    <div *ngIf="list.showMap">
         <img src="http://placehold.it/350x150">
         <!--<button fab fab-right fab-top class="fab-map" (click)="createReminder()">
                     <ion-icon name="alarm"></ion-icon>

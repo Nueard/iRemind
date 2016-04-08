@@ -1,6 +1,10 @@
-<ion-tabs #content>
-    <ion-tab tabIcon="alarm" tabTitle="Reminders" [root]="rootPage"></ion-tab>
+<ion-tabs showWhen="ios">
+    <ion-tab tabIcon="alarm" tabTitle="Reminders" [root]="reminders"></ion-tab>
     <ion-tab tabIcon="map" tabTitle="Locations" [root]="locations"></ion-tab>
     <ion-tab tabIcon="cog" tabTitle="Settings" [root]="settings"></ion-tab>
-    <ion-tab tabIcon="person" tabTitle="Profile" [root]="settings"></ion-tab>
+</ion-tabs>
+
+<ion-tabs primary showWhen="android">
+    <ion-tab tabTitle="Reminders" [root]="reminders"></ion-tab>
+    <ion-tab tabTitle="Locations" [root]="locations"></ion-tab>
 </ion-tabs>

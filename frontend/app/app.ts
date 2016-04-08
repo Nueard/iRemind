@@ -1,9 +1,7 @@
 import {App, Platform, IonicApp, MenuController, NavController} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
-import {Reminders} from './pages/reminders/reminders';
 import {CreateReminder} from './pages/reminders/create/createReminder';
 import {Settings} from './pages/settings/settings';
-import {Lists} from './pages/lists/lists';
 import {Geolocation} from 'ionic-native';
 
 import {LocationService} from './services/locationService';
@@ -11,7 +9,7 @@ import {ListService} from './services/listService';
 import {DbService} from './services/dbService';
 import {ReminderService} from './services/reminderService';
 import {GeofenceService} from './services/geofenceService';
-import {Tabs} from './pages/tabs/tabs';
+import {TabsPage} from './pages/tabs/tabs';
 
 import {enableProdMode} from 'angular2/core';
 enableProdMode();
@@ -27,9 +25,8 @@ declare var navigator: any;
     providers: [GeofenceService, DbService, ReminderService, ListService, LocationService]
 })
 export class MyApp {
-    rootPage = Reminders;
+    rootPage = TabsPage;
     settings = Settings;
-    locations = Lists;
     lists = [];
 
     constructor(
@@ -44,10 +41,10 @@ export class MyApp {
             Geolocation.getCurrentPosition();
             if (window.geofence != undefined) {
                 this.geofenceService.init();
-            }
+            };
             this.listService.getFavourites().then((lists) => {
                 this.lists = lists;
-            })
+            });
         });
 
         document.addEventListener('backbutton', () => {
@@ -57,7 +54,6 @@ export class MyApp {
             }
             return nav.pop();
         }, false);
-
     }
 
     goPage(page) {
@@ -67,7 +63,6 @@ export class MyApp {
     }
 
     createReminder(list) {
-        let nav = this.app.getComponent('nav');
         let form = {
             name: "",
             note: "",
@@ -76,6 +71,7 @@ export class MyApp {
             volume: 50
         }
         this.menu.close();
+        let nav = this.app.getComponent('nav');
         nav.push(CreateReminder, { form: form });
     }
 }

@@ -11,31 +11,7 @@
 </ion-navbar>
 <ion-content>
     <template ngFor #reminder [ngForOf]="reminders">
-        <ion-card class="adv-map">
-            <div style="position: relative" *ngIf="reminder.showMap">
-                <img src="http://placehold.it/350x150">
-                <button fab fab-right fab-top class="fab-map" (click)="edit(reminder)">
-                    <ion-icon name="create"></ion-icon>
-                </button>
-            </div>
-            <ion-item (click)="expand(reminder)">
-                <ion-icon subtle large item-left name='alarm'></ion-icon>
-                <h2><b>{{ reminder.name }}</b></h2>
-                <p>{{ reminder.note }}</p>
-            </ion-item>
-            <ion-item actions>
-                <span item-left secondary>
-                    <ion-icon name='pin'></ion-icon>
-                    Test location
-                </span>
-                <button clear item-right (click)="toggleActive(reminder)">
-                    Activate
-                </button>
-                <button clear item-right (click)="edit(reminder)" *ngIf="!reminder.showMap">
-                    Edit
-                </button>
-            </ion-item>
-        </ion-card>
+        <div [ir-reminder]="reminder"></div>
     </template>
 </ion-content>
 <button showWhen="android" fab fab-right fab-bottom (click)="create()" class="fab-ontop">

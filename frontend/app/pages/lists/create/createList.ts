@@ -32,7 +32,6 @@ export class CreateList {
     loadMap() {
         Geolocation.getCurrentPosition().then(
             (position) => {
-                console.log(position);
                 let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 let mapOptions = {
                     center: latLng,
