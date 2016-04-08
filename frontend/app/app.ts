@@ -1,4 +1,4 @@
-import {App, Platform, IonicApp, MenuController} from 'ionic-angular';
+import {App, Platform, IonicApp, MenuController, NavController} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {Reminders} from './pages/reminders/reminders';
 import {CreateReminder} from './pages/reminders/create/createReminder';
@@ -11,6 +11,7 @@ import {ListService} from './services/listService';
 import {DbService} from './services/dbService';
 import {ReminderService} from './services/reminderService';
 import {GeofenceService} from './services/geofenceService';
+import {Tabs} from './pages/tabs/tabs';
 
 import {enableProdMode} from 'angular2/core';
 enableProdMode();
@@ -22,7 +23,7 @@ declare var navigator: any;
     templateUrl: 'build/app.html',
     config: {
         clickBlock: false
-    }, // http://ionicframework.com/docs/v2/api/config/Config/
+    },
     providers: [GeofenceService, DbService, ReminderService, ListService, LocationService]
 })
 export class MyApp {
@@ -30,7 +31,6 @@ export class MyApp {
     settings = Settings;
     locations = Lists;
     lists = [];
-    nav: any;
 
     constructor(
         private app: IonicApp,

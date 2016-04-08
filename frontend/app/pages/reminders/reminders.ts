@@ -4,7 +4,7 @@ import {EditReminder} from './edit/editReminder';
 import {ReminderService} from '../../services/reminderService';
 
 @Page({
-    templateUrl: 'build/pages/reminders/reminders.1.html'
+    templateUrl: 'build/pages/reminders/reminders.html'
 })
 export class Reminders {
     reminders = [];
@@ -22,6 +22,7 @@ export class Reminders {
         this.reminderService.get().then((reminders) => {
             reminders.forEach((reminder, index) => {
                 reminders[index].activeb = reminder.active == 1;
+                reminders[index].showMap = false;
             });
             this.reminders = reminders;
         });
@@ -36,14 +37,7 @@ export class Reminders {
     }
 
     expand(reminder) {
-        if (this.expandedId == reminder.id) {
-            this.expandedId = -1;
-        } else {
-            this.expandedId = reminder.id;
-            this.form.name = reminder.name;
-            this.form.note = reminder.note;
-            this.form.volume = reminder.volume;
-        }
+        reminder.showMap = !reminder.showMap;
     }
 
     toggleActive = (reminder) => {

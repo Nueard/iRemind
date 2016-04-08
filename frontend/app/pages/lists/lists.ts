@@ -7,7 +7,7 @@ import {LocationService} from '../../services/locationService';
 import {MaxLengthPipe} from '../../services/pipes/maxLength.pipe';
 
 @Page({
-    templateUrl: 'build/pages/lists/lists.1.html',
+    templateUrl: 'build/pages/lists/lists.html',
     pipes: [MaxLengthPipe]
 })
 export class Lists {
@@ -19,6 +19,7 @@ export class Lists {
         private locationService: LocationService) {
         this.listService.getAll().then((lists) => {
             lists.forEach((list, index) => {
+                list.name = "This is a very long and lonesome road";
                 lists[index].favouriteb = list.favourite == 1;
                 this.locationService.getByList(list.id).then((locations) => {
                     list.numLocations = locations.length; 

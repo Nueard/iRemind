@@ -1,4 +1,4 @@
-<ion-navbar *navbar>
+<ion-navbar *navbar primary>
     <button menuToggle showWhen="android">
         <ion-icon name='menu'></ion-icon>
     </button>
@@ -10,26 +10,34 @@
     </ion-buttons>
 </ion-navbar>
 <ion-content>
-    <ion-list *ngIf="reminders.length > 0">
-        <template ngFor #reminder [ngForOf]="reminders">
-            <ion-item>
-                <ion-label (click)="edit(reminder)">
-                    <h2>{{ reminder.name | uppercase }}</h2>
-                    <p>{{ reminder.note }}</p>
-                </ion-label>
-                <ion-toggle item-right checked="{{reminder.activeb}}" (click)="toggleActive(reminder)"></ion-toggle>
+    <template ngFor #reminder [ngForOf]="reminders">
+        <ion-card class="adv-map">
+            <div style="position: relative" *ngIf="reminder.showMap">
+                <img src="http://placehold.it/350x150">
+                <button fab fab-right fab-top class="fab-map" (click)="edit(reminder)">
+                    <ion-icon name="create"></ion-icon>
+                </button>
+            </div>
+            <ion-item (click)="expand(reminder)">
+                <ion-icon subtle large item-left name='alarm'></ion-icon>
+                <h2><b>{{ reminder.name }}</b></h2>
+                <p>{{ reminder.note }}</p>
             </ion-item>
-        </template>
-    </ion-list>
-    <ion-card *ngIf="reminders.length == 0">
-        <ion-card-header>
-            You have no reminders yet
-        </ion-card-header>
-        <ion-card-content>
-            To create a new reminder please click the plus in the bottom right corner. Remember, you need to create a list first :)
-        </ion-card-content>
-    </ion-card>
+            <ion-item actions>
+                <span item-left secondary>
+                    <ion-icon name='pin'></ion-icon>
+                    Test location
+                </span>
+                <button clear item-right (click)="toggleActive(reminder)">
+                    Activate
+                </button>
+                <button clear item-right (click)="edit(reminder)" *ngIf="!reminder.showMap">
+                    Edit
+                </button>
+            </ion-item>
+        </ion-card>
+    </template>
 </ion-content>
-<button showWhen="android" fab fab-right fab-bottom (click)="create()" class="fab">
+<button showWhen="android" fab fab-right fab-bottom (click)="create()" class="fab-ontop">
     <ion-icon name="add"></ion-icon>
 </button>

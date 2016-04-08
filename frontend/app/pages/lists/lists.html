@@ -1,4 +1,4 @@
-<ion-navbar *navbar>
+<ion-navbar *navbar primary>
     <button menuToggle showWhen="android">
         <ion-icon name='menu'></ion-icon>
     </button>
@@ -11,42 +11,42 @@
 </ion-navbar>
 
 <ion-content>
-    <ion-list *ngIf="lists.length > 0">
-        <template ngFor #list [ngForOf]="lists">
-            <ion-item *ngIf="list.favourite == 1">
-                <ion-label (click)="edit(list)">
-                    <h2>{{ list.name }}</h2>
-                    <p>has 3 locations in it</p>
-                </ion-label>
-                <button clear item-right (click)="toggleFavourite(list)">
-                    <ion-icon primary name="star-outline" *ngIf="list.favourite == 0"></ion-icon>
-                    <ion-icon primary name="star" *ngIf="list.favourite == 1"></ion-icon>
+    <template ngFor #list [ngForOf]="lists">
+        <ion-card class="adv-map">
+            <ion-item (click)="showMap(list)">
+                <ion-icon item-left name='arrow-down' md="ios-arrow-down" *ngIf="!list.showMap"></ion-icon>
+                <ion-icon item-left name='arrow-up' md="ios-arrow-up" *ngIf="list.showMap"></ion-icon>
+                <h2><b>{{ list.name | maxLength }}</b></h2>
+                <span item-right secondary style="font-size:1.2rem">
+                    <ion-icon name='pin'></ion-icon>
+                    {{ list.numLocations }} locations
+                </span>
+            </ion-item>
+            <div style="position: relative" *ngIf="list.showMap">
+                <img src="http://placehold.it/350x150">
+                <!--<button fab fab-right fab-top class="fab-map" (click)="createReminder(list)">
+                    <ion-icon name="alarm"></ion-icon>
+                </button>-->
+            </div>
+            <ion-item actions>
+                <button item-right clear class="fab-map" (click)="createReminder(list)">
+                    <ion-icon name="alarm"></ion-icon>
+                    Create reminder
+                </button>
+                <button lite clear item-right (click)="toggleFavourite(list)">
+                    <ion-icon name="star-outline" *ngIf="!list.favouriteb"></ion-icon>
+                    <ion-icon name="star" *ngIf="list.favouriteb"></ion-icon>
+                    Favourite
+                </button>
+                <button primary clear item-right (click)="edit(list)">
+                    <ion-icon name='create'></ion-icon>
+                    Edit
                 </button>
             </ion-item>
-        </template>
-        <template ngFor #list [ngForOf]="lists">
-            <ion-item *ngIf="list.favourite == 0">
-                <ion-label (click)="edit(list)">
-                    <h2>{{ list.name }}</h2>
-                    <p>has 3 locations in it</p>
-                </ion-label>
-                <button clear item-right (click)="toggleFavourite(list)">
-                    <ion-icon primary name="star-outline" *ngIf="list.favourite == 0"></ion-icon>
-                    <ion-icon primary name="star" *ngIf="list.favourite == 1"></ion-icon>
-                </button>
-            </ion-item>
-        </template>
-    </ion-list>
-    <ion-card *ngIf="lists.length == 0">
-        <ion-card-header>
-            You have no lists yet
-        </ion-card-header>
-        <ion-card-content>
-            To create a new list please click the plus in the bottom right corner :)
-        </ion-card-content>
-    </ion-card>
+        </ion-card>
+    </template>
 </ion-content>
 
-<button showWhen="android" fab fab-right fab-bottom (click)="create()">
+<button showWhen="android" fab fab-right fab-bottom (click)="create()" class="fab-ontop">
     <ion-icon name="add"></ion-icon>
 </button>

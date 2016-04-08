@@ -25,19 +25,23 @@
         </ion-list>
         <ion-item-group>
             <ion-item-divider dark>Favourites</ion-item-divider>
+        </ion-item-group>
+        <ion-list no-lines>
             <ion-item *ngFor="#list of lists" (click)="createReminder(list)">
                 <ion-icon item-left name="navigate"></ion-icon>
                 {{list.name}}
             </ion-item>
-        </ion-item-group>
+        </ion-list>
     </ion-content>
 </ion-menu>
 
-<ion-nav id="nav" showWhen="android" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>
-
-<ion-tabs showWhen="ios">
+<ion-tabs #content primary showWhen="ios">
     <ion-tab tabIcon="alarm" tabTitle="Reminders" [root]="rootPage"></ion-tab>
     <ion-tab tabIcon="map" tabTitle="Locations" [root]="locations"></ion-tab>
     <ion-tab tabIcon="cog" tabTitle="Settings" [root]="settings"></ion-tab>
-    <ion-tab tabIcon="person" tabTitle="Profile" [root]="settings"></ion-tab>
+</ion-tabs>
+
+<ion-tabs id="nav"  #content primary showWhen="android">
+    <ion-tab tabTitle="Reminders" [root]="rootPage"></ion-tab>
+    <ion-tab tabTitle="Locations" [root]="locations"></ion-tab>
 </ion-tabs>
