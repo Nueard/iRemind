@@ -17,7 +17,8 @@
             {{ reminder.listName }}
         </span>
         <button clear item-right (click)="toggleActive()">
-            Activate
+            <span *ngIf="reminder.activeb">Deactivate</span>
+            <span *ngIf="!reminder.activeb">Activate</span>
         </button>
         <button clear item-right (click)="edit()">
             Edit
