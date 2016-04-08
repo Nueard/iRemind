@@ -5,7 +5,7 @@ import {ListService} from '../../services/listService';
 import {LocationService} from '../../services/locationService';
 
 @Page({
-    templateUrl: 'build/pages/lists/lists.html'
+    templateUrl: 'build/pages/lists/lists.1.html'
 })
 export class Lists {
     lists = [];

@@ -1,0 +1,46 @@
+<ion-navbar *navbar>
+    <button menuToggle showWhen="android">
+        <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>Locations</ion-title>
+    <ion-buttons end showWhen="ios">
+        <button royal (click)="create()">
+            Add
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+<ion-content>
+    <template ngFor #list [ngForOf]="lists">
+        <ion-card class="adv-map">
+            <div style="position: relative">
+                <img src="http://placehold.it/350x150">
+                <button fab fab-right fab-top class="fab-map">
+                    <ion-icon name="alarm"></ion-icon>
+                </button>
+            </div>
+            <ion-item>
+                <ion-icon subtle large item-left name='map'></ion-icon>
+                <h2>{{ list.name }}</h2>
+            </ion-item>
+            <ion-item actions>
+                <span item-left secondary>
+                    <ion-icon name='pin'></ion-icon>
+                    3 locations
+                </span>
+                <button primary clear item-right>
+                    <ion-icon name='star'></ion-icon>
+                    Favourite
+                </button>
+                <button primary clear item-right>
+                    <ion-icon name='create'></ion-icon>
+                    Edit
+                </button>
+            </ion-item>
+        </ion-card>
+    </template>
+</ion-content>
+
+<button showWhen="android" fab fab-right fab-bottom (click)="create()" class="fab">
+    <ion-icon name="add"></ion-icon>
+</button>

@@ -1,0 +1,40 @@
+<ion-navbar *navbar>
+    <button menuToggle showWhen="android">
+        <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>Reminders</ion-title>
+    <ion-buttons end showWhen="ios">
+        <button royal (click)="create()">
+            Add
+        </button>
+    </ion-buttons>
+</ion-navbar>
+<ion-content>
+    <template ngFor #reminder [ngForOf]="reminders">
+        <ion-card class="adv-map">
+            <div style="position: relative">
+                <img src="http://placehold.it/350x150">
+                <button fab fab-right fab-top class="fab-map">
+                    <ion-icon name="create"></ion-icon>
+                </button>
+            </div>
+            <ion-item>
+                <ion-icon subtle large item-left name='alarm'></ion-icon>
+                <h2>{{ reminder.name }}</h2>
+                <p>{{ reminder.note }}</p>
+            </ion-item>
+            <ion-item actions>
+                <span item-left secondary>
+                    <ion-icon name='pin'></ion-icon>
+                    Test location
+                </span>
+                <button clear item-right>
+                    Activate
+                </button>
+            </ion-item>
+        </ion-card>
+    </template>
+</ion-content>
+<button showWhen="android" fab fab-right fab-bottom (click)="create()" class="fab">
+    <ion-icon name="add"></ion-icon>
+</button>

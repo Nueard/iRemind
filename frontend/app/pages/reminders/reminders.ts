@@ -4,7 +4,7 @@ import {EditReminder} from './edit/editReminder';
 import {ReminderService} from '../../services/reminderService';
 
 @Page({
-    templateUrl: 'build/pages/reminders/reminders.html'
+    templateUrl: 'build/pages/reminders/reminders.1.html'
 })
 export class Reminders {
     reminders = [];
