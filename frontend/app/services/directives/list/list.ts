@@ -6,13 +6,14 @@ import {CreateList} from '../../../pages/lists/create/createList';
 import {CreateReminder} from '../../../pages/reminders/create/createReminder';
 import {EditList} from '../../../pages/lists/edit/editList';
 import {MaxLengthPipe} from '../../pipes/maxLength.pipe';
+import {MapDirective} from '../map/map';
 import {IONIC_DIRECTIVES} from 'ionic-angular/config/directives';
 
 @Component({
     selector: '[ir-list]',
     templateUrl: 'build/services/directives/list/list.html',
     pipes: [MaxLengthPipe],
-    directives: [IONIC_DIRECTIVES]
+    directives: [IONIC_DIRECTIVES, MapDirective]
 })
 export class ListDirective {
 
@@ -36,7 +37,10 @@ export class ListDirective {
     }
 
     showMap() {
-        this.list.showMap = !this.list.showMap;
+        this.locationService.getByList(this.list.id).then((locations) => {
+            this.list.locations = locations;
+            this.list.showMap = !this.list.showMap;
+        });
     }
 
     createReminder() {

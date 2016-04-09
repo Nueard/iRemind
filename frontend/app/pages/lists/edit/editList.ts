@@ -12,38 +12,39 @@ export class EditList {
     markers: any = [];
     search: any = "";
     list: any;
-    
+
 
     constructor(platform: Platform,
         private nav: NavController,
         private listService: ListService,
         private navParams: NavParams) {
-            this.list = this.navParams.get("list");
-            if(!this.list) {
-                console.error("List invalid");
-                this.nav.pop();
-            } else {
-                platform.ready().then(() => {
-                    let position = new google.maps.LatLng(0, 0);
-                    let mapOptions = {
-                        center: position,
-                        zoom: 15,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    }
-                    this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                    this.map.addListener('click', this.addClickLocation);
-                    let bounds = new google.maps.LatLngBounds();
-                    this.list.locations.forEach((location) => {
-                        let position = new google.maps.LatLng(location.latitude, location.longitude);
-                        bounds.extend(position);
-                        this.addMarker(position, true, location.radius);
-                    });
-                    this.map.fitBounds(bounds);
+        this.list = this.navParams.get("list");
+        if (!this.list) {
+            console.error("List invalid");
+            this.nav.pop();
+        } else {
+            platform.ready().then(() => {
+                let position = new google.maps.LatLng(0, 0);
+                let mapOptions = {
+                    center: position,
+                    zoom: 15,
+                    disableDefaultUI: true,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                this.map.addListener('click', this.addClickLocation);
+                let bounds = new google.maps.LatLngBounds();
+                this.list.locations.forEach((location) => {
+                    let position = new google.maps.LatLng(location.latitude, location.longitude);
+                    bounds.extend(position);
+                    this.addMarker(position, true, location.radius);
                 });
-            }
+                this.map.fitBounds(bounds);
+            });
+        }
     }
 
-    addMarker = (position, removable: boolean, radius: number=50) => {
+    addMarker = (position, removable: boolean, radius: number = 50) => {
         let marker = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
@@ -74,7 +75,7 @@ export class EditList {
     addClickLocation = (event) => {
         this.addMarker(event.latLng, true);
     }
-    
+
     clearAllMarkers = () => {
         this.markers.forEach((marker) => {
             marker.setMap(null);

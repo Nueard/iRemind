@@ -7,13 +7,14 @@ import {ReminderService} from '../../reminderService';
 import {ListService} from '../../listService';
 import {CreateReminder} from '../../../pages/reminders/create/createReminder';
 import {MaxLengthPipe} from '../../pipes/maxLength.pipe';
+import {MapDirective} from '../map/map';
 import {IONIC_DIRECTIVES} from 'ionic-angular/config/directives';
 
 @Component({
     selector: '[ir-reminder]',
     templateUrl: 'build/services/directives/reminder/reminder.html',
     pipes: [MaxLengthPipe],
-    directives: [IONIC_DIRECTIVES]
+    directives: [IONIC_DIRECTIVES, MapDirective]
 })
 export class ReminderDirective {
 

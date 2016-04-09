@@ -11,7 +11,8 @@
         </span>
     </ion-item>
     <div *ngIf="list.showMap">
-        <img src="http://placehold.it/350x150">
+                <div [ir-map]="list.locations" style="height:300px;width:100%"></div>
+
         <!--<button fab fab-right fab-top class="fab-map" (click)="createReminder()">
                     <ion-icon name="alarm"></ion-icon>
                 </button>-->

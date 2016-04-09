@@ -1,6 +1,7 @@
 <ion-card class="adv-map">
     <ion-item (click)="expand()">
-        <ion-icon primary subtle large item-left name='alarm'></ion-icon>
+        <ion-icon secondary large item-left name='alarm' *ngIf="reminder.activeb"></ion-icon>
+        <ion-icon danger large item-left name='alarm' *ngIf="!reminder.activeb"></ion-icon>
         <h2>{{ reminder.name | maxLength }}</h2>
         <p>{{ reminder.note | maxLength }}</p>
         <span item-right>
@@ -16,9 +17,11 @@
             <ion-icon name='pin'></ion-icon>
             {{ reminder.listName | maxLength:20 }}
         </span>
-        <button clear item-right (click)="toggleActive()">
-            <span *ngIf="reminder.activeb">Deactivate</span>
-            <span *ngIf="!reminder.activeb">Activate</span>
+        <button danger clear item-right (click)="toggleActive()" *ngIf="reminder.activeb">
+            Deactivate
+        </button>
+        <button secondary clear item-right (click)="toggleActive()" *ngIf="!reminder.activeb">
+            Activate
         </button>
         <button clear item-right (click)="edit()">
             Edit
