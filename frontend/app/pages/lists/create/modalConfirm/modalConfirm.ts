@@ -23,6 +23,7 @@ export class ModalConfirm {
     }
 
     save() {
+        console.log(this.locations);
         let list = {
             locations: this.locations,
             name: this.name,
