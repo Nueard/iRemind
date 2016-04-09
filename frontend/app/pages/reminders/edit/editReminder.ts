@@ -23,7 +23,13 @@ export class EditReminder {
         this.form = this.navParams.get("form");
         if (!this.form.list.id) {
             this.listService.get(this.form.list).then((list) => {
-                this.form.list = list[0];
+                this.form = {
+                    name: this.form.name,
+                    note: this.form.note,
+                    list: list[0],
+                    volume: this.form.volume,
+                    id: this.form.id
+                }
             });
         }
     }
@@ -78,7 +84,7 @@ export class EditReminder {
             volume: this.form.volume,
             active: 1
         }
-        this.reminderService.edit(this.form.id, reminder).then(() => {
+        this.reminderService.edit(this.form.id, reminder).then((res) => {
             this.nav.setRoot(Reminders);
         });
     }

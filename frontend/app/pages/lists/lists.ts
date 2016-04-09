@@ -15,12 +15,14 @@ export class Lists {
     constructor(
         private nav: NavController,
         private listService: ListService,
-        private locationService: LocationService) {
+        private locationService: LocationService) { }
+
+    onPageDidEnter() {
         this.listService.getAll().then((lists) => {
             lists.forEach((list, index) => {
                 lists[index].favouriteb = list.favourite == 1;
                 this.locationService.getByList(list.id).then((locations) => {
-                    list.numLocations = locations.length; 
+                    list.numLocations = locations.length;
                 });
                 list.showMap = false;
             })

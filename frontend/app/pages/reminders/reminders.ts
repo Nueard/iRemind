@@ -24,7 +24,9 @@ export class Reminders {
     constructor(
         private nav: NavController,
         private reminderService: ReminderService,
-        private listService: ListService) {
+        private listService: ListService) { }
+
+    onPageDidEnter() {
         this.reminderService.get().then((reminders) => {
             reminders.forEach((reminder, index) => {
                 reminders[index].activeb = reminder.active == 1;
