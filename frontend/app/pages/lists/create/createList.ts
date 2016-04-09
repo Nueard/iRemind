@@ -122,7 +122,6 @@ export class CreateList {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             this.clearAllMarkers();
             for (var i = 0; i < results.length; i++) {
-                console.log(results[i]);
                 this.addMarker(results[i].geometry.location, results[i].name, true);
             }
         } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
