@@ -35,8 +35,8 @@ export class MapDirective {
             });
             let zoomChangeBoundsListener =
                 google.maps.event.addListener(map, 'bounds_changed', (event) => {
-                    if (map.zoom > 15) {
-                        map.setZoom(15);
+                    if (map.zoom > 18) {
+                        map.setZoom(18);
                     }
                     google.maps.event.removeListener(zoomChangeBoundsListener);
                 });

@@ -5,6 +5,7 @@ import {EditReminder} from '../../../pages/reminders/edit/editReminder';
 
 import {ReminderService} from '../../reminderService';
 import {ListService} from '../../listService';
+import {LocationService} from '../../locationService';
 import {CreateReminder} from '../../../pages/reminders/create/createReminder';
 import {MaxLengthPipe} from '../../pipes/maxLength.pipe';
 import {MapDirective} from '../map/map';
@@ -24,6 +25,7 @@ export class ReminderDirective {
         private nav: NavController,
         private reminderService: ReminderService,
         private listService: ListService,
+        private locationService: LocationService,
         platform: Platform) {
         platform.ready().then(() => {
             this.listService.get(this.reminder.list).then((list: any) => {
@@ -37,7 +39,10 @@ export class ReminderDirective {
     }
 
     expand() {
-        this.reminder.showMap = !this.reminder.showMap;
+        this.locationService.getByList(this.reminder.list).then((locations) => {
+            this.reminder.locations = locations;
+            this.reminder.showMap = !this.reminder.showMap;
+        })
     }
 
     toggleActive = () => {

@@ -10,7 +10,7 @@
         </span>
     </ion-item>
     <div *ngIf="reminder.showMap">
-        <img src="http://placehold.it/350x150">
+        <div [ir-map]="reminder.locations" style="height:300px;width:100%"></div>
     </div>
     <ion-item actions>
         <span item-left>
