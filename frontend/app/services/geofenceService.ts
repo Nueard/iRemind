@@ -44,6 +44,8 @@ export class GeofenceService {
 
     private triggerCallback = (geofences) => {
         geofences.forEach((geo) => {
+            console.log(geo);
+            console.log(geo.id);
             this.locationService.getReminder(geo.id).then((reminder: any) => {
                 LocalNotifications.schedule({
                     id: reminder[0].id,
