@@ -38,10 +38,16 @@ export class ReminderService {
         var query = "SELECT * FROM reminders";
         return this.dbService.exec(query, []).then(this.getResults, this.err);
     }
+    
+    getByList(id: number) {
+        var query = "SELECT * FROM reminders WHERE list = (?)";
+        let params = [id];
+        return this.dbService.exec(query, params).then(this.getResults, this.err);
+    }
 
     del(id) {
         var query = "DELETE FROM reminders WHERE id = " + id;
-        this.dbService.exec(query, []).then((res) => {
+        return this.dbService.exec(query, []).then((res) => {
             this.geofenceService.sync();
         }, this.err);
     }

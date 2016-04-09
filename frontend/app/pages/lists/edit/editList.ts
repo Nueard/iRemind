@@ -12,6 +12,7 @@ export class EditList {
     markers: any = [];
     search: any = "";
     list: any;
+    edit = true;
 
 
     constructor(platform: Platform,
@@ -114,6 +115,12 @@ export class EditList {
             this.search = "";
             this.nav.present(alert);
         }
+    }
+    
+    delete() {
+        this.listService.del(this.list.id).then(() => {
+            this.nav.setRoot(Lists);
+        });
     }
 
     save() {

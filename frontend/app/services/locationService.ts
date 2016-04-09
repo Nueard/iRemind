@@ -28,9 +28,17 @@ export class LocationService {
         let promises = [];
         locations.forEach((location) => {
             location.list = listId;
-            promises.push(this.add(location).then(() => {}, this.err));
+            promises.push(this.add(location).then(() => { }, this.err));
         });
         return Promise.all(promises);
+    }
+
+    delByList(id: number) {
+        let query = "DELETE FROM locations WHERE list = (?)";
+        let params = [id];
+        return this.dbService.exec(query, params).then(() => {
+
+        }, this.err);
     }
 
     get(id: number) {

@@ -13,6 +13,7 @@ export class EditReminder {
     lists = [];
     form: any;
     title = "Edit";
+    edit = true;
 
     constructor(
         private nav: NavController,
@@ -40,6 +41,12 @@ export class EditReminder {
         } else {
             this.showMaterialSelect();
         }
+    }
+    
+    delete() {
+        this.reminderService.del(this.form.id).then(() => {
+            this.nav.setRoot(Reminders);
+        });
     }
 
     showMaterialSelect() {

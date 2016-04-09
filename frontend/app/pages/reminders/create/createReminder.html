@@ -4,6 +4,7 @@
         <button royal (click)="submit()">
             <ion-icon name="checkmark"></ion-icon>
         </button>
+
     </ion-buttons>
 </ion-navbar>
 
@@ -31,12 +32,20 @@
             </button>
         </ion-item>
 
-        <div class="ionic">
-            <div class="range">
-                <ion-icon name="volume-up" class="icon"></ion-icon>
-                <input type="range" [(ngModel)]="form.volume" min="0" max="100">
-                <span item-right style="min-width:40px;text-align:right;">{{form.volume}} %</span>
+        <ion-item>
+            <div class="ionic">
+                <div class="range">
+                    <ion-icon name="volume-up" class="icon"></ion-icon>
+                    <input type="range" [(ngModel)]="form.volume" min="0" max="100">
+                    <span item-right style="min-width:40px;text-align:right;">{{form.volume}} %</span>
+                </div>
             </div>
-        </div>
+        </ion-item>
+        <ion-item *ngIf="edit">
+            <button danger block (click)="delete()">
+                <ion-icon name="trash"></ion-icon>
+                Delete
+            </button>
+        </ion-item>
     </ion-list>
 </ion-content>

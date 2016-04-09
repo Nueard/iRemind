@@ -56,10 +56,18 @@ export class ListService {
     }
 
     del(id: number) {
-        var query = "DELETE FROM lists WHERE id = ?";
+        let query = "SELECT * FROM reminders WHERE list = (?)";
         let params = [id];
-        this.dbService.exec(query, params).then((succ) => {
-            this.geofenceService.sync();
+        return this.dbService.exec(query, params).then((res) => {
+            if (res.res.rows.length == 0) {
+                var query = "DELETE FROM lists WHERE id = ?";
+                let params = [id];
+                return this.dbService.exec(query, params).then((succ) => {
+                    return this.locationService.delByList(id).then(
+                        () => { this.geofenceService.sync(); }
+                    );
+                }, this.err);
+            }
         }, this.err);
     }
 
