@@ -33,18 +33,24 @@ export class MapDirective {
             this.locations.forEach((location) => {
                 let position = new google.maps.LatLng(location.latitude, location.longitude);
                 bounds.extend(position);
-                this.addMarker(position, map);
+                this.addMarker(position, map, location.radius);
             });
             map.fitBounds(bounds);
         });
     }
 
-    addMarker = (position, map) => {
+    addMarker = (position, map, radius) => {
         let marker = new google.maps.Marker({
             map: map,
             title: name,
             animation: google.maps.Animation.DROP,
             position: position
+        });
+        let circle = new google.maps.Circle({
+            map: map,
+            center: position,
+            radius: radius,
+            editable: false
         });
     }
 }
