@@ -36,25 +36,25 @@ export class EditList {
                     this.list.locations.forEach((location) => {
                         let position = new google.maps.LatLng(location.latitude, location.longitude);
                         bounds.extend(position);
-                        this.addMarker(position, true);
+                        this.addMarker(position, true, location.radius);
                     });
                     this.map.fitBounds(bounds);
                 });
             }
     }
 
-    addMarker = (position, removable: boolean) => {
+    addMarker = (position, removable: boolean, radius: number=50) => {
         let marker = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
             position: position
         });
         if (removable) {
-            marker.radius = 50;
+            marker.radius = radius;
             let circle = new google.maps.Circle({
                 map: this.map,
                 center: position,
-                radius: 50,
+                radius: marker.radius,
                 editable: true
             });
             circle.addListener('radius_changed', () => {
