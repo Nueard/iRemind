@@ -3,6 +3,7 @@ import {LocationService} from './locationService';
 import {Injectable} from 'angular2/core';
 import {Location} from './locationService';
 import {GeofenceService} from './geofenceService';
+import {Toast} from 'ionic-native';
 
 export interface List {
     name: string,
@@ -67,6 +68,8 @@ export class ListService {
                         () => { this.geofenceService.sync(); }
                     );
                 }, this.err);
+            } else {
+                Toast.showLongBottom("Can't delete list - there is an active reminder using it");
             }
         }, this.err);
     }
