@@ -2,7 +2,7 @@
     <ion-item (click)="expand()">
         <ion-icon secondary large item-left name='alarm' *ngIf="reminder.activeb"></ion-icon>
         <ion-icon danger large item-left name='alarm' *ngIf="!reminder.activeb"></ion-icon>
-        <h2>{{ reminder.name | maxLength }}</h2>
+        <h2>{{ reminder.id | maxLength }}</h2>
         <p>{{ reminder.note | maxLength }}</p>
         <span item-right>
             <ion-icon primary name='arrow-down' md="ios-arrow-down" *ngIf="!reminder.showMap"></ion-icon>

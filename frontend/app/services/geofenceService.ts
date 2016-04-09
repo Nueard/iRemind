@@ -1,9 +1,11 @@
 import {Injectable} from 'angular2/core';
 import {ReminderService} from './reminderService';
 import {LocationService} from './locationService';
+import {DbService} from './dbService';
 import {LocalNotifications} from 'ionic-native';
 
 declare var window: any;
+declare var cordova: any;
 
 export interface Geofence {
     id: number,
@@ -18,23 +20,37 @@ export class GeofenceService {
     geofences: Array<Geofence>
     initialised: boolean = false;
 
-    constructor(private locationService: LocationService) { }
+    constructor(private locationService: LocationService, private dbService: DbService) { }
 
     init = () => {
         window.geofence.initialize();
         this.initialised = true;
         window.geofence.onTransitionReceived = this.triggerCallback;
         this.sync();
+        LocalNotifications.on("clear", this.deactivateReminder);
+        LocalNotifications.on("clearall", this.deactivateReminder);
+        LocalNotifications.on("cancel", this.deactivateReminder);
+        LocalNotifications.on("cancelall", this.deactivateReminder);
+        LocalNotifications.on("click", this.deactivateReminder);
+    }
+
+    private deactivateReminder = (notification, state) => {
+        let query = "UPDATE reminders SET active = 0 WHERE id = (?)";
+        let params = [notification.id];
+        this.dbService.exec(query, params).then((res) => {
+            this.sync();
+        }, this.err);
     }
 
     private triggerCallback = (geofences) => {
         geofences.forEach((geo) => {
-            console.log('Geofence transition detected', geo);
-            LocalNotifications.schedule({
-                id: 1,
-                title: 'Title here',
-                text: 'Click to turn reminder off',
-                data: geo.id
+            this.locationService.getReminder(geo.id).then((reminder: any) => {
+                LocalNotifications.schedule({
+                    id: reminder[0].id,
+                    title: reminder[0].name,
+                    text: reminder[0].note,
+                    data: reminder[0]
+                });
             });
         });
     }

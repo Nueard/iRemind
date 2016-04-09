@@ -51,6 +51,15 @@ export class LocationService {
         return this.dbService.exec(query, []).then(this.getResults, this.err);
     }
 
+    getReminder(id: number) {
+        return this.get(id).then((location: any) => {
+            let query = "SELECT * FROM reminders WHERE list = (?) AND active = 1";
+            console.log(location);
+            let params = [location[0].list];
+            return this.dbService.exec(query, params).then(this.getResults, this.err);
+        });
+    }
+
     getByList(id) {
         let query = "SELECT * FROM locations WHERE list = " + id;
         return this.dbService.exec(query, []).then(this.getResults, this.err);
