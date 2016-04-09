@@ -2,6 +2,7 @@ import {Component, Input} from 'angular2/core';
 import {NavController, Platform} from 'ionic-angular';
 
 import {EditReminder} from '../../../pages/reminders/edit/editReminder';
+import {EditList} from '../../../pages/lists/edit/editList';
 
 import {ReminderService} from '../../reminderService';
 import {ListService} from '../../listService';
@@ -20,6 +21,7 @@ import {IONIC_DIRECTIVES} from 'ionic-angular/config/directives';
 export class ReminderDirective {
 
     @Input('ir-reminder') reminder: any;
+    list: any;
 
     constructor(
         private nav: NavController,
@@ -30,12 +32,20 @@ export class ReminderDirective {
         platform.ready().then(() => {
             this.listService.get(this.reminder.list).then((list: any) => {
                 this.reminder.listName = list[0].name;
-            })
+                this.list = list[0];
+            });
         });
     }
 
     edit() {
         this.nav.push(EditReminder, { form: this.reminder });
+    }
+
+    editList() {
+        // this.locationService.getByList(this.list.id).then((locations) => {
+        //     this.list.locations = locations;
+        //     this.nav.push(EditList, { list: this.list });
+        // })
     }
 
     expand() {

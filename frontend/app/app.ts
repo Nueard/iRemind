@@ -16,7 +16,6 @@ enableProdMode();
 
 declare var window: any;
 declare var navigator: any;
-declare var cordova: any;
 
 @App({
     templateUrl: 'build/app.html',
@@ -49,25 +48,6 @@ export class MyApp {
             if (platform.is("ios")) {
                 this.menu.swipeEnable(false);
             }
-            
-            
-                var actions = [{
-                    identifier: 'SIGN_IN',
-                    title: 'Yes',
-                    activationMode: 'background',
-                    destructive: false,
-                    authenticationRequired: true
-                }];
-
-                cordova.plugins.notification.local.schedule({
-                    id: 1,
-                    title: "Test",
-                    text: "YOLO",
-                    actions: actions
-                });
-            
-            
-            
         });
 
         document.addEventListener('backbutton', () => {

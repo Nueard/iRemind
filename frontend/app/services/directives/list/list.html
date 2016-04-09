@@ -1,9 +1,7 @@
 <ion-card class="adv-map">
     <ion-item>
-        <button lite clear item-left (click)="toggleFavourite()">
-            <ion-icon name="star-outline" *ngIf="!list.favouriteb"></ion-icon>
-            <ion-icon name="star" *ngIf="list.favouriteb"></ion-icon>
-        </button>
+        <ion-icon primary large item-left  name="star-outline" *ngIf="!list.favouriteb" (click)="toggleFavourite()"></ion-icon>
+        <ion-icon primary large item-left  name="star" *ngIf="list.favouriteb" (click)="toggleFavourite()"></ion-icon>
         <h2 (click)="showMap(list)">{{ list.name | maxLength }}</h2>
         <span item-right (click)="showMap()">
             <ion-icon name='arrow-down' md="ios-arrow-down" *ngIf="!list.showMap"></ion-icon>
@@ -19,14 +17,14 @@
     </div>
     <ion-item actions>
         <span item-left primary style="font-size:1.2rem">
-                    <ion-icon name='pin'></ion-icon>
-                    {{ list.numLocations }} locations
-                </span>
-        <button item-right clear class="fab-map" (click)="createReminder()">
+            <ion-icon name='pin'></ion-icon>
+            {{ list.numLocations }} locations
+        </span>
+        <button item-right class="fab-map" (click)="createReminder()">
             <!--<ion-icon name="alarm"></ion-icon>-->
             Create reminder
         </button>
-        <button primary clear item-right (click)="edit()">
+        <button primary item-right (click)="edit()">
             <!--<ion-icon name='create'></ion-icon>-->
             Edit
         </button>
