@@ -15,8 +15,6 @@ export class MapDirective {
         platform: Platform,
         el: ElementRef) {
         platform.ready().then(() => {
-            console.log(el);
-            console.log(this.locations);
             let position = new google.maps.LatLng(0, 0);
             let mapOptions = {
                 center: position,
@@ -35,6 +33,13 @@ export class MapDirective {
                 bounds.extend(position);
                 this.addMarker(position, map, location.radius);
             });
+            let zoomChangeBoundsListener =
+                google.maps.event.addListener(map, 'bounds_changed', (event) => {
+                    if (map.zoom > 15) {
+                        map.setZoom(15);
+                    }
+                    google.maps.event.removeListener(zoomChangeBoundsListener);
+                });
             map.fitBounds(bounds);
         });
     }
